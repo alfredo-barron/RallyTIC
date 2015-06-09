@@ -84,7 +84,7 @@ $rootUri = $app->request()->getRootUri();
 $assetUri = $rootUri;
 $resourceUri = $_SERVER['REQUEST_URI'];
 $parts = explode("/",$app->request()->getPathInfo());
-
+/*
 $view = $app->view();
 $app->view->parserExtensions = array(
     new \Slim\Views\TwigExtension(),
@@ -151,7 +151,7 @@ $twig->addFilter(new Twig_SimpleFilter('filesize', function ($fs, $digits = 2) u
   }
   return round($fs, $digits) . " " . $sizes[$total];
 }));
-
+*/
 $db = null;
 try {
   $db = new PDO(DB_DRIVER.":host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
