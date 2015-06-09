@@ -27,6 +27,16 @@ if(getenv('DATABASE_URL') != false){
   define('DB_USERNAME', $user);
   define('DB_PASSWORD', $pass);
   define('DB_PREFIX', '');
+
+  $db = null;
+  try {
+    $db = new PDO(DB_DRIVER.":host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+    #$db->exec("SET CHARACTER SET utf8");
+  } catch (PDOException $e) {
+    return $e->getMessage();
+  }
+
+  $app->db = $db;
 } else {
   define('DB_DRIVER', 'pgsql');//mysql,pgsql
   define('DB_HOST', '127.0.0.1');
@@ -37,6 +47,15 @@ if(getenv('DATABASE_URL') != false){
   define('DB_PREFIX', '');
   define('DB_COLLATION', 'utf8_general_ci');
   define('DB_CHARSET', 'utf8');
+  $db = null;
+  try {
+    $db = new PDO(DB_DRIVER.":host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+    #$db->exec("SET CHARACTER SET utf8");
+  } catch (PDOException $e) {
+    return $e->getMessage();
+  }
+
+  $app->db = $db;
 }
 // Slim Vars
 define('COOKIE_PREFIX', 'rallytic');
@@ -152,15 +171,6 @@ $twig->addFilter(new Twig_SimpleFilter('filesize', function ($fs, $digits = 2) u
   return round($fs, $digits) . " " . $sizes[$total];
 }));
 */
-$db = null;
-try {
-  $db = new PDO(DB_DRIVER.":host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
-  #$db->exec("SET CHARACTER SET utf8");
-} catch (PDOException $e) {
-  return $e->getMessage();
-}
-
-$app->db = $db;
 
 foreach(glob(MODELS_DIR.'*.php') as $model) {
   include_once $model;
