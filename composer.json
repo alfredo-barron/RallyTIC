@@ -1,0 +1,19 @@
+{
+  "require": {
+    "php": ">=5.3.0",
+    "slim/slim": "2.*",
+    "slim/views": "0.1.*",
+    "twig/twig": ">=1.12,<2.0-dev",
+    "illuminate/database": "4.1.*",
+    "illuminate/validation": "4.1.*",
+    "illuminate/view": "4.1.*",
+    "nesbot/Carbon": "*",
+    "fzaninotto/faker": "1.5.*@dev",
+    "hashids/hashids": "dev-master"
+  },
+  "autoload": {
+    "classmap": [
+      "models/"
+    ]
+  }
+}
