@@ -35,7 +35,8 @@ $app->get('/logout', function() use($app){
 })->name('logout');
 
 $app->get('/500', function() use($app){
-  $app->render('errors/500.twig');
+  //$app->render('errors/500.twig');
+  echo "500";
 })->name('500');
 
 # Include Controllers here
