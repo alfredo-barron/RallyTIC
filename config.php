@@ -13,15 +13,31 @@ define('CONTROLLERS_DIR', 'controllers/');
 define('VIEWS_DIR', 'views/');
 define('MODELS_DIR', 'models/');
 // DATABASE
-define('DB_DRIVER', 'pgsql');//mysql,pgsql
-define('DB_HOST', '127.0.0.1');
-define('DB_PORT', '5432');
-define('DB_NAME', 'rally');
-define('DB_USER', 'ht');
-define('DB_PASS', 'ht.2014');
-define('DB_PREFIX', '');
-define('DB_COLLATION', 'utf8_general_ci');
-define('DB_CHARSET', 'utf8');
+if(getenv('DATABASE_URL') != false){
+  $dbopts = parse_url(getenv('DATABASE_URL'));
+  $path = ltrim($dbopts['path'],'/');
+  $host = $dbopts['host'];
+  $port = $dbopts['port'];
+  $user = $dbopts['user'];
+  $pass = $dbopts['pass'];
+  define('DB_DRIVER', 'pgsql');//mysql,pgsql
+  define('DB_HOST', $host);
+  define('DB_PORT', $port);
+  define('DB_DATABASE', $path);
+  define('DB_USERNAME', $user);
+  define('DB_PASSWORD', $pass);
+  define('DB_PREFIX', '');
+} else {
+  define('DB_DRIVER', 'pgsql');//mysql,pgsql
+  define('DB_HOST', '127.0.0.1');
+  define('DB_PORT', '5432');
+  define('DB_NAME', 'rally');
+  define('DB_USER', 'ht');
+  define('DB_PASS', 'ht.2014');
+  define('DB_PREFIX', '');
+  define('DB_COLLATION', 'utf8_general_ci');
+  define('DB_CHARSET', 'utf8');
+}
 // Slim Vars
 define('COOKIE_PREFIX', 'rallytic');
 define('COOKIES_ENABLED', true);

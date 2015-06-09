@@ -10,5 +10,10 @@
     "nesbot/Carbon": "*",
     "fzaninotto/faker": "1.5.*@dev",
     "hashids/hashids": "dev-master"
+  },
+  "autoload": {
+    "classmap": [
+      "models/"
+    ]
   }
 }
