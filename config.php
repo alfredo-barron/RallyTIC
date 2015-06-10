@@ -47,9 +47,11 @@ $app->configureMode('development', function () use ($app) {
 
 $app->notFound(function () use ($app) {
   //$app->render('errors/404.twig');
+  echo "404";
 });
 $app->error(function (\Exception $e) use ($app) {
   //$app->render('errors/500.twig');
+  echo "500";
 });
 
 $app->session = $_SESSION;
@@ -59,7 +61,7 @@ $rootUri = $app->request()->getRootUri();
 $assetUri = $rootUri;
 $resourceUri = $_SERVER['REQUEST_URI'];
 $parts = explode("/",$app->request()->getPathInfo());
-/*
+
 $view = $app->view();
 $app->view->parserExtensions = array(
     new \Slim\Views\TwigExtension(),
@@ -126,7 +128,7 @@ $twig->addFilter(new Twig_SimpleFilter('filesize', function ($fs, $digits = 2) u
   }
   return round($fs, $digits) . " " . $sizes[$total];
 }));
-*/
+
 
 // DATABASE
 if(getenv('DATABASE_URL') != false){
