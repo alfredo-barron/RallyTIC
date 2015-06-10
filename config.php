@@ -1,7 +1,7 @@
 <?php
 session_cache_limiter(false);
 session_start();
-date_default_timezone_set('America/Mexico_City');
+//date_default_timezone_set('America/Mexico_City');
 // CONFIG
 define('SYS_TITLE', 'Rally TIC');
 define('SYS_NAME', 'Rally TIC');
