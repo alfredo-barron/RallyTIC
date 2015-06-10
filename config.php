@@ -20,6 +20,7 @@ if(getenv('DATABASE_URL') != false){
   $port = $dbopts['port'];
   $user = $dbopts['user'];
   $pass = $dbopts['pass'];
+  print_r('DATABASE_URL');
   define('DB_DRIVER', 'pgsql');//mysql,pgsql
   define('DB_HOST', $host);
   define('DB_PORT', $port);
