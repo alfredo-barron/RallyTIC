@@ -13,8 +13,7 @@ $has_db = function ($app) {
 };
 
 $app->get('/', $has_db($app), function() use($app) {
-  //return $app->render('login.twig');
-  echo "Api Rally TIC";
+  return $app->render('index.twig');
 })->name('home');
 
 $app->post('/login', function() use($app){

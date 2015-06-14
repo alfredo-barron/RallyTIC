@@ -1,0 +1,66 @@
+{% import "forms.twig" as f %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  {#<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700|Open+Sans' rel='stylesheet' type='text/css'>#}
+  <!-- PACE js -->
+  <link rel="stylesheet" href="{{ asset('pace-theme-minimal.css') }}">
+  <script src="{{ asset('pace.min.js') }}" data-pace-options='{ "ajax": false, "restartOnRequestAfter": false }'></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ asset('materialize.css') }}">
+  {% block css %}{% endblock %}
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <!--[if lt IE 8]>
+  <p class="browsehappy alert alert-warning alert-dismissable">
+  <i class="fa fa-warning"></i>
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Estás usando un navegador <strong>obsoleto</strong>. Por favor <a href="http://browsehappy.com/?locale=es" target="_blank" class="alert-link">actualiza tu navegador</a> para mejorar tu experiencia de uso.</p>
+  <![endif]-->
+  <header>
+    <nav class="light-blue lighten-1" role="navigation">
+      <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Rally TIC</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#">Cerrar Sesión</a></li>
+        </ul>
+
+        <ul id="nav-mobile" class="side-nav">
+          <li><a href="#">Cerrar Sesión</a></li>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+      </div>
+    </nav>
+  </header>
+  <div class="container">
+    <div class="row">{% block content %}{% endblock %}</div>
+  </div>
+  <footer class="page-footer light-blue darken-3">
+    <div class="container">
+      <div class="row">
+        <div class="col l12 s12">
+          <h5 class="white-text">Rally TIC</h5>
+          <p class="grey-text text-lighten-4">Programación Móvil & Programación Web Avanzada <br> Verano 2015 </p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      © {{ now|date('Y') }} Rally TIC
+      </div>
+    </div>
+  </footer>
+  <!-- JS -->
+  <script src="{{ asset('jquery.min.js') }}"></script>
+  <script src="{{ asset('materialize.js') }}"></script>
+  <script src="{{ asset('init.js') }}"></script>
+  {% block js %}{% endblock %}
+</body>
+</html>
