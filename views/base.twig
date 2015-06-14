@@ -26,22 +26,26 @@
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Estás usando un navegador <strong>obsoleto</strong>. Por favor <a href="http://browsehappy.com/?locale=es" target="_blank" class="alert-link">actualiza tu navegador</a> para mejorar tu experiencia de uso.</p>
   <![endif]-->
   <header>
-    <nav class="light-blue lighten-1" role="navigation">
+   <nav class="light-blue lighten-1" role="navigation">
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
       <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Rally TIC</a>
         <ul class="right hide-on-med-and-down">
           <li><a href="#">Cerrar Sesión</a></li>
         </ul>
 
         <ul id="nav-mobile" class="side-nav">
-          <li><a href="#">Cerrar Sesión</a></li>
+          <li><a href="#">Rallys</a></li>
+          <li><a href="#">Actividades</a></li>
+          <li><a href="#">Participantes</a></li>
         </ul>
-        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
       </div>
     </nav>
   </header>
-  <div class="container">
-    <div class="row">{% block content %}{% endblock %}</div>
-  </div>
+  <main>
+    <div class="container">
+      <div class="row">{% block content %}{% endblock %}</div>
+    </div>
+  </main>
   <footer class="page-footer light-blue darken-3">
     <div class="container">
       <div class="row">
