@@ -15,6 +15,7 @@ $has_db = function ($app) {
 $app->get('/', $has_db($app), function() use($app) {
   echo "<pre>";
   //print_r($app->request->get());
+  print_r($_REQUEST);
   print_r($app->request->get());
   echo "</pre>";
   //return $app->render('index.twig');
