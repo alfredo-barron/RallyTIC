@@ -21,6 +21,9 @@ define('COOKIE_DURATION', '25 minutes');
 define('COOKIE_NAME', COOKIE_PREFIX.SYS_TITLE);
 define('SLIM_MODE','development');//development,production
 
+// Facebook
+define('FACEBOOK_SDK_V4_SRC_DIR', 'vendor/facebook/php-sdk-v4/src/Facebook/');
+
 $app = new \Slim\Slim();
 if(COOKIES_ENABLED) {
   $app->add(new \Slim\Middleware\SessionCookie(array(

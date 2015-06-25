@@ -8,4 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'Slim\\Views\\' => array($vendorDir . '/slim/views'),
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
+    'Facebook\\' => array($vendorDir . '/facebook/php-sdk-v4/src/Facebook'),
 );
