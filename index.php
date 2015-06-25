@@ -13,11 +13,7 @@ $has_db = function ($app) {
 };
 
 $app->get('/', $has_db($app), function() use($app) {
-  echo "<pre>";
-  //print_r($app->request->get());
-  print_r($app->request);
-  echo "</pre>";
-  //return $app->render('index.twig');
+  return $app->render('index.twig');
 })->name('home');
 
 $app->post('/login', function() use($app){
