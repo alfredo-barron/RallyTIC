@@ -5,6 +5,7 @@ require __DIR__ . '/vendor/facebook/php-sdk-v4/autoload.php';
 
 use Facebook\FacebookSession;
 use Facebook\FacebookRedirectLoginHelper;
+FacebookSession::setDefaultApplication('402114476653320', 'd64c8b2bccbe62caab6feec84ec50623');
 
 $has_db = function ($app) {
   return function () use ($app) {
@@ -22,14 +23,14 @@ $app->get('/', $has_db($app), function() use($app) {
 
 $app->get('/login', function() use($app){
 
-  FacebookSession::setDefaultApplication('402114476653320', 'd64c8b2bccbe62caab6feec84ec50623');
-  $helper = new FacebookRedirectLoginHelper("https://rally-tic.herokuapp.com/callback");
+  $redirect_url = "http://rally-tic.herokuapp.com/callback";
+  $helper = new FacebookRedirectLoginHelper($redirect_url, $appId = NULL, $appSecret = NULL);
   if (isset($user)) {
     $loginUrl = $helper->getLogoutUrl();
   } else {
-    $loginUrl = $helper->getLoginUrl(array('scope' => 'read_stream,user_status,publish_stream,email,user_location'));
+    $loginUrl = $helper->getLoginUrl();
   }
-  echo $loginUrl;
+  echo "<a href='".$loginUrl."'>Entrar con Facebook</a>";
   //if(isset($app->session['logged_in']) and $app->session['logged_in'] == true){
   //  $app->redirect($app->urlFor('home'));
   //}
@@ -41,13 +42,14 @@ $app->get('/login', function() use($app){
 $app->get('/callback', function() use($app){
   $helper = new FacebookRedirectLoginHelper();
     try {
-      $session = $helper->getSessionFromRedirect();
+       $user = $helper->getSessionFromRedirect();
+       print_r($user);
     } catch(FacebookRequestException $ex) {
       // When Facebook returns an error
     } catch(\Exception $ex) {
       // When validation fails or other local issues
     }
-    if ($session) {
+    if ($user) {
       // Logged in
     }
 })->name('callback');
