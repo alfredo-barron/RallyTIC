@@ -40,7 +40,6 @@ $app->get('/login', function() use($app){
 })->name('login');
 
 $app->get('/callback', function() use($app){
-  $helper = new FacebookRedirectLoginHelper();
     try {
       $user = $helper->getSessionFromRedirect();
     } catch(FacebookRequestException $ex) {
