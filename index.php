@@ -40,17 +40,18 @@ $app->get('/login', function() use($app){
 })->name('login');
 
 $app->get('/callback', function() use($app){
+   print_r($_GET);
+   exit();
   $helper = new FacebookRedirectLoginHelper();
     try {
        $user = $helper->getSessionFromRedirect();
-       print_r($user);
     } catch(FacebookRequestException $ex) {
       // When Facebook returns an error
     } catch(\Exception $ex) {
       // When validation fails or other local issues
     }
     if ($user) {
-      // Logged in
+       print_r($user);
     }
 })->name('callback');
 
