@@ -8,6 +8,7 @@
   <title>{{ title }}</title>
   {#<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700|Open+Sans' rel='stylesheet' type='text/css'>#}
   <!-- PACE js -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('pace-theme-minimal.css') }}">
   <script src="{{ asset('pace.min.js') }}" data-pace-options='{ "ajax": false, "restartOnRequestAfter": false }'></script>
   <!-- CSS -->
@@ -19,24 +20,29 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body>
+<body class="grey lighten-5">
   <!--[if lt IE 8]>
   <p class="browsehappy alert alert-warning alert-dismissable">
   <i class="fa fa-warning"></i>
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Estás usando un navegador <strong>obsoleto</strong>. Por favor <a href="http://browsehappy.com/?locale=es" target="_blank" class="alert-link">actualiza tu navegador</a> para mejorar tu experiencia de uso.</p>
   <![endif]-->
   <header>
-   <nav class="light-blue lighten-1" role="navigation">
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-      <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Rally TIC</a>
+    <nav class="light-blue lighten-1" role="navigation">
+      <div class="nav-wrapper container">
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+        <a href="{{ urlFor('home') }}" class="brand-logo">Rally TIC</a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="#">Cerrar Sesión</a></li>
+          <li><a href="{{ urlFor('logout') }}"><i class="material-icons">more_vert</i></a></li>
+          <!--<li><a href="#" id="aLogin" name="aLogin"><i class="material-icons left">account_circle</i>Iniciar</a></li>
+          <li><a href="#!" id="aRegister" name="aRegister"><i class="material-icons left">person_add</i>Registrate</a></li>-->
         </ul>
-
         <ul id="nav-mobile" class="side-nav">
-          <li><a href="#">Rallys</a></li>
+          <li><a href="#"><i class="material-icons">more_vert</i></a></li>
+          <!--<li><a href="#"><i class="material-icons left">account_circle</i>Iniciar</a></li>
+          <li><a href="#!"><i class="material-icons left">person_add</i>Registrate</a></li>-->
+          <!--<li><a href="#"><i class="material-icons left">assistant_photo</i>Eventos</a></li>
           <li><a href="#">Actividades</a></li>
-          <li><a href="#">Participantes</a></li>
+          <li><a href="#">Participantes</a></li>-->
         </ul>
       </div>
     </nav>

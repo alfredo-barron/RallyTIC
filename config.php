@@ -1,7 +1,7 @@
 <?php
 session_cache_limiter(false);
 session_start();
-//date_default_timezone_set('America/Mexico_City');
+date_default_timezone_set('America/Mexico_City');
 // CONFIG
 define('SYS_TITLE', 'Rally TIC');
 define('SYS_NAME', 'Rally TIC');
@@ -12,6 +12,32 @@ define('ASSETS_DIR', 'web/');
 define('CONTROLLERS_DIR', 'controllers/');
 define('VIEWS_DIR', 'views/');
 define('MODELS_DIR', 'models/');
+// DATABASE
+if(getenv('DATABASE_URL') != false){
+  $dbopts = parse_url(getenv('DATABASE_URL'));
+  $path = ltrim($dbopts['path'],'/');
+  $host = $dbopts['host'];
+  $port = $dbopts['port'];
+  $user = $dbopts['user'];
+  $pass = $dbopts['pass'];
+  define('DB_DRIVER', 'pgsql');//mysql,pgsql
+  define('DB_HOST', $host);
+  define('DB_PORT', $port);
+  define('DB_NAME', $path);
+  define('DB_USER', $user);
+  define('DB_PASS', $pass);
+  define('DB_PREFIX', '');
+} else {
+  define('DB_DRIVER', 'pgsql');//mysql,pgsql
+  define('DB_HOST', '127.0.0.1');
+  define('DB_PORT', '5432');
+  define('DB_NAME', 'rally');
+  define('DB_USER', 'ht');
+  define('DB_PASS', 'ht.2014');
+  define('DB_PREFIX', '');
+  define('DB_COLLATION', 'utf8_general_ci');
+  define('DB_CHARSET', 'utf8');
+}
 
 // Slim Vars
 define('COOKIE_PREFIX', 'rallytic');
@@ -132,49 +158,15 @@ $twig->addFilter(new Twig_SimpleFilter('filesize', function ($fs, $digits = 2) u
   return round($fs, $digits) . " " . $sizes[$total];
 }));
 
-
-// DATABASE
-if(getenv('DATABASE_URL') != false){
-  $dbopts = parse_url(getenv('DATABASE_URL'));
-  $path = ltrim($dbopts['path'],'/');
-  $host = $dbopts['host'];
-  $port = $dbopts['port'];
-  $user = $dbopts['user'];
-  $pass = $dbopts['pass'];
-  define('DB_DRIVER', 'pgsql');//mysql,pgsql
-  define('DB_HOST', $host);
-  define('DB_PORT', $port);
-  define('DB_NAME', $path);
-  define('DB_USER', $user);
-  define('DB_PASS', $pass);
-  define('DB_PREFIX', '');
-
-  $db = null;
-  try {
+$db = null;
+try {
   $db = new PDO(DB_DRIVER.":host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
-  } catch (PDOException $e) {
-    echo $e;
-  }
-  $app->db = $db;
-} else {
-  define('DB_DRIVER', 'pgsql');//mysql,pgsql
-  define('DB_HOST', '127.0.0.1');
-  define('DB_PORT', '5432');
-  define('DB_NAME', 'rally');
-  define('DB_USER', 'ht');
-  define('DB_PASS', 'ht.2014');
-  define('DB_PREFIX', '');
-  define('DB_COLLATION', 'utf8_general_ci');
-  define('DB_CHARSET', 'utf8');
-
-  $db = null;
-  try {
-    $db = new PDO(DB_DRIVER.":host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
-  } catch (PDOException $e) {
-    echo $e;
-  }
-  $app->db = $db;
+  #$db->exec("SET CHARACTER SET utf8");
+} catch (PDOException $e) {
+  return $e->getMessage();
 }
+
+$app->db = $db;
 
 foreach(glob(MODELS_DIR.'*.php') as $model) {
   include_once $model;

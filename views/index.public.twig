@@ -1,0 +1,159 @@
+{% extends 'base.twig' %}
+{% block content %}
+<div id="i1">
+  <div class="section no-pad-bot" id="index-banner">
+    <br>
+    <div class="row">
+      <div class="col s12 m6">
+        <h1 class="header center orange-text">Rally TIC</h1>
+        <br>
+        <h5 class="header center light">Sistema de rally para eventos competitivos orientado hacia participantes a pie o en vehículo, donde deben reunirse en un sitio determinado después de haber realizado varias actividades.</h5>
+        <br>
+      </div>
+      <div class="col s12 m6 z-depth-1 white">
+        <div class="row">
+          <div class="col s12 m12">
+            <ul class="tabs">
+              <li class="tab col s6"><a class="active" href="#test1">Iniciar</a></li>
+              <li class="tab col s6"><a href="#test2">Registrate</a></li>
+            </ul>
+          </div>
+          <div id="test1" class="col s12 m12">
+            <br>
+            <form action="{{ urlFor('login') }}" id="formLogin" name="formLogin">
+             <div class="row">
+              <div class="input-field col s10 offset-s1 m10 offset-m1">
+                <input id="email" name="email" type="email" class="validate">
+                <label for="email">Correo electrónico</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s10 offset-s1 m10 offset-m1">
+                <input id="password" name="password" type="password" class="validate">
+                <label for="password">Contraseña</label>
+              </div>
+            </div>
+            <a id="btnIn" name="btnIn" class="waves-effect red lighten-1 btn-large col s10 offset-s1 m10 offset-m1">INICIAR</a>
+          </form>
+        </div>
+          <div id="test2" class="col s12 m12">
+            <br>
+            <form action="{{ urlFor('new-user-post') }}" id="formRegister" name="formRegister">
+              <div class="row">
+                <div class="input-field col s10 offset-s1 m10 offset-m1">
+                  <input id="_email" name="email" type="email" class="validate">
+                  <label for="_email">Correo electrónico</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s10 offset-s1 m10 offset-m1">
+                  <input id="_username" name="username" type="text" class="validate">
+                  <label for="_username">Usuario</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s10 offset-s1 m10 offset-m1">
+                  <input id="_password" name="password" type="password" class="validate">
+                  <label for="_password">Contraseña</label>
+                </div>
+              </div>
+              <a id="btnSigIn" name="btnSigIn" class="waves-effect red lighten-1 btn-large col s10 offset-s1 m10 offset-m1">COMIENZA</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons medium">flag</i></h2>
+            <h5 class="center">Eventos</h5>
+
+            <p class="light center-align">Es un conjunto de actividades en sencuencia para participantes ya sea individual o en grupo para lograr un objetivo en competencias.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons medium">directions_walk</i></h2>
+            <h5 class="center">Actividades</h5>
+
+            <p class="light center-align">Es aquella acción o tarea realizada por un participante o un grupo de participantes en un sitio determinado con un objetivo.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons medium">group</i></h2>
+            <h5 class="center">Participantes</h5>
+
+            <p class="light center-align">Es aquella persona o grupo de personas que participan en un conjunto de actividades o en un evento convocado.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <br><br>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+  $(document).ready(function() {
+
+    $('#btnIn').click(function(event) {
+      var url = $('#formLogin').attr('action');
+      var email = $('#email').val();
+      var password = $('#password').val();
+      if ((email == "" && password == "") || (email == "" || password == "")) {
+        Materialize.toast('Datos incompletos!', 4000, 'rounded')
+      } else {
+        $.ajax({
+            url: "login",
+            type: "POST",
+            dataType: "json",
+            data: $('#formLogin').serialize(),
+            success: function(data) {
+              if(data.status == 1){
+                location.reload();
+              } else if(data.status == 2) {
+                Materialize.toast('Correo electrónico o contraseña incorrecta!', 4000, 'rounded')
+              }
+            }
+          })
+      }
+    });
+
+    $('#btnSigIn').click(function(event) {
+      var url = $('#formRegister').attr('action');
+      var email = $('#_email').val();
+      var username = $('#_username').val();
+      var password = $('#_password').val();
+      if ((email == "" && username == "" && password == "") || (email == "" || username == "" || password == "")) {
+        Materialize.toast('Datos incompletos!', 4000, 'rounded')
+      } else {
+        $.ajax({
+            url: "new-user",
+            type: "POST",
+            dataType: "json",
+            data: $('#formRegister').serialize(),
+            success: function(data) {
+              if(data.status == 1){
+                Materialize.toast('Registrado con&nbsp;<span class="yellow-text">exito!<span>', 4000, 'rounded')
+                $('#_email').val("");
+                $('#_username').val("");
+                $('#_password').val("");
+              } else if(data.status == 2){
+                Materialize.toast('Error del servidor!', 4000, 'rounded')
+              }
+            }
+          })
+      }
+    });
+
+  });
+</script>
+{% endblock %}
+{# 270170 #}
