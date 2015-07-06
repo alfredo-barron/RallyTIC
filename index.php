@@ -33,6 +33,8 @@ $app->get('/', $has_db($app), function() use($app) {
   if (!isset($_SESSION['user'])) {
     return $app->render('index.public.twig');
   } else {
+    $u = $_SESSION['user'];
+    $app->view()->setData('user', $u);
     return $app->render('index.twig');
   }
 })->name('home');

@@ -98,6 +98,16 @@
     </div>
     <br><br>
 </div>
+ <div id="about" class="modal">
+  <div class="modal-content">
+    <h4>Acerca de Rally TIC</h4>
+    <p><b>Alfredo Barrón Rodríguez</b></p>
+    <p>Ingienería en Tecnologías de la Información y Comunicaciones<p>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:void(0);" class=" modal-action modal-close waves-effect waves-green btn-flat">Cerrar</a>
+  </div>
+</div>
 {% endblock %}
 {% block js %}
 <script>
@@ -152,6 +162,10 @@
           })
       }
     });
+
+  $('.about').click(function(event) {
+    $('#about').openModal();
+  });
 
   });
 </script>

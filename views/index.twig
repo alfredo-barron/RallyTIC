@@ -2,31 +2,50 @@
 
 {% block content %}
   <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-      <div class='row center'>
-        <div class="card">
-          <div class="row">
-            <div class="col-md-offset-2 col-md-8">
-              <div id="map"></div>
+    <div id="tab1" class="col s12 m12">
+      <br>
+      <div class="container">
+        <div class='row center'>
+          <div class="card">
+            <div class="row">
+              <div class="col-md-offset-2 col-md-8">
+                <div id="map"></div>
+              </div>
             </div>
           </div>
         </div>
+        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+          <a class="btn-floating btn-large red">
+            <i class="large mdi-content-add"></i>
+          </a>
+          <ul>
+            <li><a class="btn-floating yellow darken-1"><i class="large mdi-content-flag"></i></a></li>
+            <li><a class="btn-floating green"><i class="large mdi-maps-directions-walk"></i></a></li>
+            <li><a class="btn-floating blue"><i class="large mdi-social-person-add"></i></a></li>
+          </ul>
+        </div>
       </div>
-
+    </div>
+    <div id="tab2" class="col s12 m12">
       <br>
-
+      <div class="collection">
+        <a href="#!" class="collection-item">Alvin</a>
+        <a href="#!" class="collection-item active">Alvin</a>
+        <a href="#!" class="collection-item">Alvin</a>
+        <a href="#!" class="collection-item">Alvin</a>
+      </div>
+    </div>
+    <div id="tab3" class="col s12 m12">
+      <br>
+      Test 3
+    </div>
+    <div id="tab4" class="col s12 m12">
+      <br>
     </div>
 
-  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large red">
-      <i class="large mdi-content-add"></i>
-    </a>
-    <ul>
-      <li><a class="btn-floating yellow darken-1"><i class="large mdi-content-flag"></i></a></li>
-      <li><a class="btn-floating green"><i class="large mdi-maps-directions-walk"></i></a></li>
-      <li><a class="btn-floating blue"><i class="large mdi-social-person-add"></i></a></li>
-    </ul>
-  </div>
+    <br>
+
+    </div>
   </div>
 {% endblock %}
 
