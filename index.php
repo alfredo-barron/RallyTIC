@@ -33,9 +33,11 @@ $app->get('/', $has_db($app), function() use($app) {
   if (!isset($_SESSION['user'])) {
     return $app->render('index.public.twig');
   } else {
-    $u = $_SESSION['user'];
-    $app->view()->setData('user', $u);
-    return $app->render('index.twig');
+    $user = $_SESSION['user'];
+    $u = new User();
+    $app->view()->setData('user', $user);
+    $data['competitors'] = $u->competitors();
+    return $app->render('index.twig',$data);
   }
 })->name('home');
 

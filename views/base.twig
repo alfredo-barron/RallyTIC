@@ -33,12 +33,11 @@
         <a href="{{ urlFor('home') }}" class="brand-logo">Rally TIC</a>
         <ul class="right hide-on-med-and-down">
           {% if user.id is defined %}
+            <li><a href="javascript:void(0);"><i class="material-icons left">account_circle</i>{{ user.username }}</a></li>
             <li><a href="{{ urlFor('logout') }}"><i class="material-icons left">power_settings_new</i>Salir</a></li>
           {% else %}
           <li><a href="javascript:void(0);" class="about"><i class="material-icons left">more_vert</i>Acerca de</a></li>
           {% endif %}
-          <!--<li><a href="#" id="aLogin" name="aLogin"><i class="material-icons left">account_circle</i>Iniciar</a></li>
-          <li><a href="#!" id="aRegister" name="aRegister"><i class="material-icons left">person_add</i>Registrate</a></li>-->
         </ul>
         <ul id="nav-mobile" class="side-nav">
           {% if user.id is defined %}
@@ -90,6 +89,7 @@
   <script src="{{ asset('jquery.min.js') }}"></script>
   <script src="{{ asset('materialize.js') }}"></script>
   <script src="{{ asset('init.js') }}"></script>
+  <script src="{{ asset('rally.js') }}"></script>
   {% block js %}{% endblock %}
 </body>
 </html>

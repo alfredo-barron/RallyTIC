@@ -121,7 +121,7 @@
         Materialize.toast('Datos incompletos!', 4000, 'rounded')
       } else {
         $.ajax({
-            url: "login",
+            url: url,
             type: "POST",
             dataType: "json",
             data: $('#formLogin').serialize(),
@@ -145,7 +145,7 @@
         Materialize.toast('Datos incompletos!', 4000, 'rounded')
       } else {
         $.ajax({
-            url: "new-user",
+            url: url,
             type: "POST",
             dataType: "json",
             data: $('#formRegister').serialize(),

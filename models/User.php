@@ -21,11 +21,13 @@ class User {
     $email = trim($post['email']);
     $username = trim($post['username']);
     $password = md5($post['password']);
-    $st = $this->db->prepare("INSERT INTO users(username, email, password) VALUES(?,?,?)");
+    $admin = true;
+    $st = $this->db->prepare("INSERT INTO users(username, email, password, admin) VALUES(?,?,?,?)");
     $st->execute(array(
       $username,
       $email,
-      $password));
+      $password,
+      $admin));
     $st = $this->db->prepare("SELECT * FROM users WHERE username = ?");
     $st->setFetchMode(PDO::FETCH_OBJ);
     $st->execute(array($username));
@@ -50,6 +52,31 @@ class User {
     }
   }
 
+  public function new_competitor($post) {
+    $first_name = ucwords(strtolower(trim($post['first_name'])));
+    $last_name = ucwords(strtolower(trim($post['last_name'])));
+    $username = trim($post['username']);
+    $gender = trim($post['gender']);
+    $email = trim($post['email']);
+    $password = md5($post['username']);
+    $st = $this->db->prepare("INSERT INTO users(username,email,password,first_name,last_name,gender) VALUES(?,?,?,?,?,?)");
+    $st->execute(array(
+      $username,
+      $email,
+      $password,
+      $first_name,
+      $last_name,
+      $gender));
+    $st = $this->db->prepare("SELECT * FROM users WHERE username = ?");
+    $st->setFetchMode(PDO::FETCH_OBJ);
+    $st->execute(array($username));
+    return $st->fetch();
+  }
 
-
+  public function competitors() {
+    $st = $this->db->prepare("SELECT id,first_name,last_name FROM users WHERE admin = false ORDER BY first_name DESC");
+    $st->setFetchMode(PDO::FETCH_OBJ);
+    $st->execute();
+    return $st->fetchAll();
+  }
 }

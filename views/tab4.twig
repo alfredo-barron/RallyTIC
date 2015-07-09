@@ -1,0 +1,65 @@
+<br>
+  <div class="row">
+   <div class="col s4 m4 z-depth-0 white">
+     <div style="height: 550px;">
+       <div class="collection">
+        <div id="listViewCompetitors"></div>
+      </div>
+     </div>
+   </div>
+   <div style="height: 557px;" class="col s8 m8 z-depth-0 indigo lighten-4">
+      <br>
+      <div class="right">
+        <a id="btnAddCompetitor" name="btnAddCompetitor" class="waves-effect waves-light btn">Nuevo participante</a>
+      </div>
+      <br><br><br>
+      <div id="newCompetitor">
+        <div class="row">
+          <div class="col offset-s1 s10 offset-m1 m10 z-depth-1 white">
+            <form action="{{ urlFor('new-competitor-post') }}" id="formNewCompetitor" name="formNewCompetitor">
+              <br>
+              <div class="row">
+                <div class="input-field col s5 offset-s1 m5 offset-m1">
+                  <input id="first_name" name="first_name" type="text" class="validate">
+                  <label for="first_name">Nombre(s)</label>
+                </div>
+                <div class="input-field col s5 m5">
+                  <input id="last_name" name="last_name" type="text" class="validate">
+                  <label for="last_name">Apellidos</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s5 offset-s1 m5 offset-m1">
+                  <input id="username" name="username" type="text" class="validate">
+                  <label for="username">Usuario</label>
+                </div>
+                <div class="input-field col s5 m5">
+                  <input name="gender" type="radio" id="man" value="H" checked="true">
+                  <label for="man">Hombre</label>
+                  <input name="gender" type="radio" id="woman" value="M">
+                  <label for="woman">Mujer</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s10 offset-s1 m10 offset-m1">
+                  <input id="email" name="email" type="email" class="validate">
+                  <label for="email">Correo electrónico</label>
+                </div>
+              </div>
+              <br>
+              <div class="center">
+                <a id="btnCancelarCompetitor" name="btnCancelarCompetitor" class="waves-effect red lighten-1 btn">Cancelar</a>
+                <a id="btnNewCompetitor" name="btnNewCompetitor" class="waves-effect green lighten-1 btn">Aceptar</a>
+              </div>
+              <br>
+            </form>
+          </div>
+        </div>
+      </div>
+   </div>
+ </div>
+ <div class="row">
+   <div class="col offset-s5 s6 offset-m1 m5 z-depth-1 white">
+
+   </div>
+ </div>
