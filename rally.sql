@@ -12,6 +12,8 @@ create table users(
   updated_at timestamp not null default now()
 );
 
+INSERT INTO users(username,email,password,admin) VALUES ('alfredobarron','alfreedobarron@gmail.com','afec8e3faf8cc984cf3e0060e73fb945',true),('j2deme','j2deme@gmail.com','827ccb0eea8a706c4c34a16891f84e7b',true);
+
 --No más de 4 integrantes o individuales
 create table teams(
   id serial primary key,
