@@ -3,8 +3,6 @@
 * Modelo User
 */
 class User {
-  protected $table = 'users';
-  protected $pk = 'id';
   protected $db = null;
 
   function __construct(){
@@ -21,13 +19,13 @@ class User {
     $email = trim($post['email']);
     $username = trim($post['username']);
     $password = md5($post['password']);
-    $admin = true;
-    $st = $this->db->prepare("INSERT INTO users(username, email, password, admin) VALUES(?,?,?,?)");
+    $rol = trim($post['rol']);
+    $st = $this->db->prepare("INSERT INTO users(username, email, password, rol) VALUES(?,?,?,?)");
     $st->execute(array(
       $username,
       $email,
       $password,
-      $admin));
+      $rol));
     $st = $this->db->prepare("SELECT * FROM users WHERE username = ?");
     $st->setFetchMode(PDO::FETCH_OBJ);
     $st->execute(array($username));

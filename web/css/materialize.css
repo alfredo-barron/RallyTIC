@@ -8137,3 +8137,9 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 @media (min-height: 40.125em) {
   .picker--time .picker__box {
     margin-bottom: 5em; } }
+
+.box{
+  height: 550px;
+  overflow-y: scroll;
+  position: relative;
+}

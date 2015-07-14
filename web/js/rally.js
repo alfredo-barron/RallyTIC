@@ -3,7 +3,8 @@ $(document).ready(function(){
     $('#content_btn').hide();
     $('#btnAgregar').attr('disabled',false);
     $('#newCompetitor').hide();
-
+    $('#newTeam').hide();
+    $('#viewTeam').hide();
 
     $('#btnAgregar').click(function(event) {
       var equipo = $('#n_teams option:selected').val();
@@ -25,8 +26,54 @@ $(document).ready(function(){
     $('#newCompetitor').hide();
   });
 
+  $('#btnCancelTeam').click(function(event) {
+    $('#newTeam').hide();
+  });
+
   $('#btnAddCompetitor').click(function(event) {
     $('#newCompetitor').show();
+  });
+
+  $('#btnAddTeam').click(function(event) {
+    $('#viewTeam').hide();
+    $('#newTeam').show();
+  });
+
+  $(document).on('click', 'a[data-toggle="modal"]', function(event) {
+    $('#newTeam').hide();
+    $('#viewTeam').show();
+    var link = $(this);
+    var id = link.data('id');
+    team(id);
+  });
+
+  $('#closeViewTeam').click(function(event) {
+    $('#viewTeam').hide();
+  });
+
+  $('#btnNewTeam').click(function(event) {
+    var url = $('#formNewTeam').attr('action');
+    var name = $('#name_team').val();
+    var password = $('#password_team').val();
+    if ((name == "" && password == "") || (name == "" || password == "")) {
+      Materialize.toast('Datos incompletos!', 4000, 'rounded')
+    } else {
+      $.ajax({
+          url: url,
+          type: "POST",
+          dataType: "json",
+          data: $('#formNewTeam').serialize(),
+          success: function(data) {
+            if(data.status == 1){
+              Materialize.toast('Equipo&nbsp;<span class="yellow-text">registrado!<span>', 4000, 'rounded')
+              teams();
+              $('#newTeam').hide();
+            } else if(data.status == 2){
+              Materialize.toast('Error del servidor!', 4000, 'rounded')
+            }
+          }
+        })
+    }
   });
 
   $('#btnNewCompetitor').click(function(event) {
@@ -56,6 +103,7 @@ $(document).ready(function(){
   });
 
   competitors();
+  teams();
 
   function competitors () {
     $.ajax({
@@ -72,6 +120,39 @@ $(document).ready(function(){
           $('#listViewCompetitors').append('<h4>Sin participantes</h4>');
           $('#newCompetitor').show();
         };
+      }
+    });
+  }
+
+  function teams () {
+    $.ajax({
+      url: 'teams',
+      type: 'GET',
+      dataType: 'json',
+      data: '',
+      success: function(data) {
+        if (data.length) {
+          $('#listViewTeams').empty();
+          for (var i = data.length - 1; i >= 0; i--) {
+            $('#listViewTeams').append('<a href="javascript:void(0);" class="collection-item avatar" data-toggle="modal" data-id="'+data[i].id+'"><i class="material-icons circle red left">group</i> Equipo <br> <b>'+data[i].name+'</b></a>');
+          };
+        } else {
+          //$('#listViewTeams').append('<h4>Sin grupos</h4>');
+          $('#newTeam').show();
+        };
+      }
+    });
+  }
+
+  function team(id){
+    $.ajax({
+      url: 'team/'+id,
+      type: 'GET',
+      dataType: 'json',
+      data: '',
+      success: function(data) {
+        $('#view_nameteam').empty();
+        $('#view_nameteam').html(data.name);
       }
     });
   }

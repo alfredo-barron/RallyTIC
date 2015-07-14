@@ -7,18 +7,27 @@ create table users(
   first_name text,
   last_name text,
   gender varchar(1),
-  admin boolean default false,
+  rol varchar(1),
   created_at timestamp not null default now(),
   updated_at timestamp not null default now()
 );
 
-INSERT INTO users(username,email,password,admin) VALUES ('alfredobarron','alfreedobarron@gmail.com','afec8e3faf8cc984cf3e0060e73fb945',true),('j2deme','j2deme@gmail.com','827ccb0eea8a706c4c34a16891f84e7b',true);
+INSERT INTO users(username,email,password,rol) VALUES ('alfredobarron','alfreedobarron@gmail.com','afec8e3faf8cc984cf3e0060e73fb945','P'),('j2deme','j2deme@gmail.com','827ccb0eea8a706c4c34a16891f84e7b','O');
 
 --No más de 4 integrantes o individuales
 create table teams(
   id serial primary key,
-  name text not null,
-  password text,
+  name varchar(25) not null,
+  password varchar(32) not null,
+  created_at timestamp not null default now(),
+  updated_at timestamp not null default now()
+);
+
+INSERT INTO teams(name,password) VALUES ('Alfa','1234'),('Beta','4321'),('Omega','1122'),('Zeta','5678'),('Gamma','5690');
+
+create table team_user(
+  id serial primary key,
+  team_id int,
   user_id int,
   created_at timestamp not null default now(),
   updated_at timestamp not null default now()

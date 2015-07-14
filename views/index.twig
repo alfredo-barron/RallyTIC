@@ -2,18 +2,30 @@
 
 {% block content %}
   <div class="section no-pad-bot" id="index-banner">
-    <div id="tab1" class="col s12 m12">
-      {% include 'tab1.twig' %}
-    </div>
-    <div id="tab2" class="col s12 m12">
-      {% include 'tab2.twig' %}
-    </div>
-    <div id="tab3" class="col s12 m12">
-      {% include 'tab3.twig' %}
-    </div>
-    <div id="tab4" class="col s12 m12">
-      {% include 'tab4.twig' %}
-    </div>
+    {% if user.rol == "O" %}
+      <div id="tab1" class="col s12 m12">
+        {% include 'tab1.twig' %}
+      </div>
+      <div id="tab2" class="col s12 m12">
+        {% include 'tab2.twig' %}
+      </div>
+      <div id="tab3" class="col s12 m12">
+        {% include 'tab3.twig' %}
+      </div>
+      <div id="tab4" class="col s12 m12">
+        {% include 'tab4.twig' %}
+      </div>
+    {% elseif user.rol == "P" %}
+      <div id="tab5" class="col s12 m12">
+        {# {% include 'tab5.twig' %} #}
+      </div>
+      <div id="tab6" class="col s12 m12">
+        {% include 'tab6.twig' %}
+      </div>
+      <div id="tab7" class="col s12 m12">
+        {# {% include 'tab7.twig' %} #}
+      </div>
+    {% endif %}
     <br>
   </div>
 {% endblock %}

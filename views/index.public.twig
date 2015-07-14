@@ -57,6 +57,17 @@
                   <label for="_password">Contraseña</label>
                 </div>
               </div>
+              <div class="row">
+                <div class="input-field col offset-s1 s5 offset-m1 m5">
+                  <input name="rol" type="radio" id="org" value="O" checked="true">
+                  <label for="org">Organizador</label>
+                </div>
+                <div class="input-field col s5 m5">
+                  <input name="rol" type="radio" id="com" value="P">
+                  <label for="com">Participante</label>
+                </div>
+              </div>
+              <br>
               <a id="btnSigIn" name="btnSigIn" class="waves-effect red lighten-1 btn-large col s10 offset-s1 m10 offset-m1">COMIENZA</a>
             </form>
           </div>
@@ -151,10 +162,7 @@
             data: $('#formRegister').serialize(),
             success: function(data) {
               if(data.status == 1){
-                Materialize.toast('Registrado con&nbsp;<span class="yellow-text">exito!<span>', 4000, 'rounded')
-                $('#_email').val("");
-                $('#_username').val("");
-                $('#_password').val("");
+                location.reload();
               } else if(data.status == 2){
                 Materialize.toast('Error del servidor!', 4000, 'rounded')
               }
