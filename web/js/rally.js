@@ -152,7 +152,7 @@ $(document).ready(function(){
       data: '',
       success: function(data) {
         $('#view_nameteam').empty();
-        $('#view_nameteam').html(data.name);
+        $('#view_nameteam').html('Equipo <b>'+data.name+'</b> <p>Contraseña: '+data.password+'<p/>');
       }
     });
   }

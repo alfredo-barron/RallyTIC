@@ -40,14 +40,10 @@ class User {
   public function login($post){
     $email = trim($post['email']);
     $password = md5($post['password']);
-    try {
-      $st = $this->db->prepare("SELECT * FROM users WHERE email = ? AND password = ?");
-      $st->setFetchMode(PDO::FETCH_OBJ);
-      $st->execute(array($email,$password));
-      return $st->fetch();
-    } catch (Exception $e) {
-      return $e;
-    }
+    $st = $this->db->prepare("SELECT * FROM users WHERE email = ? AND password = ?");
+    $st->setFetchMode(PDO::FETCH_OBJ);
+    $st->execute(array($email,$password));
+    return $st->fetch();
   }
 
   public function new_competitor($post) {

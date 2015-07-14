@@ -28,15 +28,24 @@ class Team {
     return $st->fetch();
   }
 
+  public function login($post){
+    $name = trim($post['name']);
+    $password = md5($post['password']);
+    $st = $this->db->prepare("SELECT * FROM teams WHERE name = ? AND password = ?");
+    $st->setFetchMode(PDO::FETCH_OBJ);
+    $st->execute(array($name,$password));
+    return $st->fetch();
+  }
+
   public function teams() {
-    $st = $this->db->prepare("SELECT id,name,password FROM teams ORDER BY name DESC");
+    $st = $this->db->prepare("SELECT id,name FROM teams ORDER BY name DESC");
     $st->setFetchMode(PDO::FETCH_OBJ);
     $st->execute();
     return $st->fetchAll();
   }
 
   public function team($id) {
-    $st = $this->db->prepare("SELECT id,name FROM teams WHERE id = ?");
+    $st = $this->db->prepare("SELECT id,name,password FROM teams WHERE id = ?");
     $st->setFetchMode(PDO::FETCH_OBJ);
     $st->execute(array($id));
     return $st->fetch();

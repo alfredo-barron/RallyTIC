@@ -57,6 +57,21 @@ $app->post('/login', function() use($app){
   }
 })->name('login');
 
+$app->post('/log-in', function() use($app){
+  $t = new Team();
+  $t = $t->login($app->request->post());
+  if(isset($t->id)){
+    print json_encode(array(
+          "status" => 1,
+          "team" => $t
+          ));
+  } else {
+    print json_encode(array(
+          "status" => 2
+          ));
+  }
+})->name('login_team');
+
 //$app->get('/login', function() use($app){
 
   //$redirect_url = "http://rally-tic.herokuapp.com/callback";

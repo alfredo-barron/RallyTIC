@@ -19,6 +19,7 @@ create table teams(
   id serial primary key,
   name varchar(25) not null,
   password varchar(32) not null,
+  status boolean default false,
   created_at timestamp not null default now(),
   updated_at timestamp not null default now()
 );
