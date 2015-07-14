@@ -30,7 +30,7 @@ class Team {
 
   public function login($post){
     $name = trim($post['name']);
-    $password = md5($post['password']);
+    $password = trim($post['password']);
     $st = $this->db->prepare("SELECT * FROM teams WHERE name = ? AND password = ?");
     $st->setFetchMode(PDO::FETCH_OBJ);
     $st->execute(array($name,$password));
