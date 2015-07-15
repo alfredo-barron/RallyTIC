@@ -57,9 +57,9 @@ $app->post('/login', function() use($app){
   }
 })->name('login');
 
-$app->post('/log-in', function() use($app){
+$app->get('/login', function() use($app){
   $t = new Team();
-  $t = $t->login($app->request->post());
+  $t = $t->login($app->request->get());
   if(isset($t->id)){
     print json_encode(array(
           "status" => 1,

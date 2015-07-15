@@ -28,9 +28,9 @@ class Team {
     return $st->fetch();
   }
 
-  public function login($post){
-    $name = trim($post['name']);
-    $password = trim($post['password']);
+  public function login($get){
+    $name = trim($get['name']);
+    $password = trim($get['password']);
     $st = $this->db->prepare("SELECT * FROM teams WHERE name = ? AND password = ?");
     $st->setFetchMode(PDO::FETCH_OBJ);
     $st->execute(array($name,$password));
