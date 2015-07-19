@@ -19,18 +19,20 @@ $has_db = function ($app) {
   };
 };
 
-$is_logged = function ($app) {
+$auth = function ($app) {
   return function () use ($app) {
-    if(isset($app->session['user']) and !is_null($app->session['user'])){
-      return true;
-    } else {
+    if (!isset($_SESSION['user'])) {
+      //$_SESSION['redirectTo'] = $app->request()->getPathInfo()
       $app->redirect($app->urlFor('home'));
     }
   };
 };
 
 $app->get('/', $has_db($app), function() use($app) {
-  return $app->render('index.public.twig');
+  if (!isset($_SESSION['user']))
+    return $app->render('index.public.twig');
+  else
+    $app->redirect($app->urlFor('dashboard'));
 })->name('home');
 
 $app->post('/login', function() use($app){

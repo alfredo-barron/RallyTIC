@@ -1,7 +1,7 @@
 <?php
 
 # Se requiere sesión iniciada
-$app->get('/home', $is_logged($app), function () use ($app){
+$app->get('/home', $auth($app), function () use ($app){
   $user = $_SESSION['user'];
   $q = new Question();
   $app->view()->setData('user', $user);
