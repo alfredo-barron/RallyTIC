@@ -34,6 +34,8 @@ create table team_user(
   updated_at timestamp not null default now()
 );
 
+--Usuarios listos
+
 create table events(
   id serial primary key,
   name text not null,
@@ -44,18 +46,32 @@ create table events(
   updated_at timestamp not null default now()
 );
 
+create table questions(
+  id serial primary key,
+  message text,
+  answer text,
+  track text,
+  created_at timestamp not null default now(),
+  updated_at timestamp not null default now()
+);
+
+create table stations(
+  id serial primary key,
+  name text,
+  lat text,
+  lng text,
+  created_at timestamp not null default now(),
+  updated_at timestamp not null default now()
+);
 
 create table activities(
   id serial primary key,
   name text, --A,B,C
-  message text,
-  request text,
-  lat text,
-  long text,
-  intents int
+  station_id int, --Estacion
+  question_id int, --Pregunta
+  intents int --Numero de intentos
   time int, --No sobrepasar los 5 minutos
-  penalty int,
-  track text,
+  penalty int, --Castigo
   status boolean default false,
   created_at timestamp not null default now(),
   updated_at timestamp not null default now()
@@ -69,16 +85,6 @@ create table activity_event(
   order_activity int, --Puede cambiar para cada equipo 1,2,3,4,5,6
   start_activity boolean default false, --Siempre seran las mismas
   end_activity boolean default false, --Siempre seran las mismas
-  created_at timestamp not null default now(),
-  updated_at timestamp not null default now()
-);
-
---Aqui sera las ubicaciones constantes
-create table login_logout(
-  id serial primary key,
-  user_id int not null,
-  lat text,
-  lng text,
   created_at timestamp not null default now(),
   updated_at timestamp not null default now()
 );

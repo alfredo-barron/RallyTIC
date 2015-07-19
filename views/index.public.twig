@@ -137,9 +137,10 @@
             dataType: "json",
             data: $('#formLogin').serialize(),
             success: function(data) {
-              if(data.status == 1){
-                location.reload();
-              } else if(data.status == 2) {
+              if(data.status == 1) {
+                window.location.href = "{{ urlFor('dashboard') }}";
+              }
+              else if(data.status == 2) {
                 Materialize.toast('Correo electrónico o contraseña incorrecta!', 4000, 'rounded')
               }
             }
@@ -161,9 +162,10 @@
             dataType: "json",
             data: $('#formRegister').serialize(),
             success: function(data) {
-              if(data.status == 1){
-                location.reload();
-              } else if(data.status == 2){
+              if(data.status == 1) {
+                window.location.href = "{{ urlFor('dashboard') }}";
+              }
+              else if(data.status == 2){
                 Materialize.toast('Error del servidor!', 4000, 'rounded')
               }
             }

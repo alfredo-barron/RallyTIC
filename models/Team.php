@@ -3,6 +3,7 @@
 * Modelo Team
 */
 class Team {
+
   protected $db = null;
 
   function __construct(){
@@ -11,7 +12,7 @@ class Team {
   }
 
 /**
- * Function insert new user
+ * Function insert new team
  * @param  array() $post
  * @return PDOStatement
  */

@@ -3,6 +3,7 @@
 * Modelo User
 */
 class User {
+
   protected $db = null;
 
   function __construct(){

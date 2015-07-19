@@ -1,0 +1,44 @@
+<nav class="light-blue lighten-1" role="navigation">
+  <div class="nav-wrapper container">
+    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+    <a href="{{ urlFor('home') }}" class="brand-logo">Rally TIC</a>
+    <ul class="right hide-on-med-and-down">
+      {% if user.id is defined %}
+        <li><a href="javascript:void(0);"><i class="material-icons left">account_circle</i>{{ user.username }}</a></li>
+        <li><a href="{{ urlFor('logout') }}"><i class="material-icons left">power_settings_new</i>Salir</a></li>
+      {% else %}
+      <li><a href="javascript:void(0);" class="about"><i class="material-icons left">more_vert</i>Acerca de</a></li>
+      {% endif %}
+    </ul>
+    <ul id="nav-mobile" class="side-nav">
+      {% if user.id is defined %}
+        <li><a href="{{ urlFor('logout') }}">Salir</a></li>
+      {% else %}
+      <li><a href="javascript:void(0);" class="about"><i class="material-icons left">more_vert</i>Acerca de</a></li>
+      {% endif %}
+      <!--<li><a href="#!"><i class="material-icons left">person_add</i>Registrate</a></li>-->
+      <!--<li><a href="#"><i class="material-icons left">assistant_photo</i>Eventos</a></li>
+      <li><a href="#">Actividades</a></li>
+      <li><a href="#">Participantes</a></li>-->
+    </ul>
+  </div>
+  {% if user.id is defined %}
+    <div class="row">
+      <div class="col s12">
+        <ul class="tabs">
+          {% if user.rol == "O" %}
+            <li class="tab col s2 m3"><a class="active" href="#tab1">Inicio</a></li>
+            <li class="tab col s2 m3"><a href="#tab2">Eventos</a></li>
+            <li class="tab col s2 m3"><a href="#tab3">Actividades</a></li>
+            <li class="tab col s2 m3"><a href="#tab4">Participantes</a></li>
+            <li class="tab col s2 m3"><a href="#tab5">Preguntas/Acertijos</a></li>
+          {% elseif user.rol == "P" %}
+            <li class="tab col s4 m4"><a class="active" href="#tab6">Eventos</a></li>
+            <li class="tab col s4 m4"><a href="#tab7">Grupos</a></li>
+            <li class="tab col s4 m4"><a href="#tab8">Puntuajes</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+</nav>

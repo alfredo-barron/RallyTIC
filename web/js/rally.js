@@ -6,6 +6,7 @@ $(document).ready(function(){
     $('#newTeam').hide();
     $('#viewTeam').hide();
 
+    //Pendiente
     $('#btnAgregar').click(function(event) {
       var equipo = $('#n_teams option:selected').val();
       if (equipo != "") {
@@ -30,6 +31,7 @@ $(document).ready(function(){
     $('#newTeam').hide();
   });
 
+  //Equipos y participantes
   $('#btnAddCompetitor').click(function(event) {
     $('#newCompetitor').show();
   });
@@ -102,6 +104,76 @@ $(document).ready(function(){
     }
   });
 
+  //Questions
+  $('#btnAddQuestion').click(function(event) {
+    $('#newQuestion').openModal();
+  });
+
+  $('#btnNewQuestion').click(function(event) {
+    var url = $('#formNewQuestion').attr('action');
+    var message = $('#message').val();
+    var answer = $('#answer').val();
+    var track = $('#track').val();
+    if ((message == "" && answer == "" && track == "") || (message == "" || answer == "" || track == "")) {
+      Materialize.toast('Datos incompletos!', 4000, 'rounded')
+    } else {
+      $.ajax({
+          url: url,
+          type: "POST",
+          dataType: "json",
+          data: $('#formNewQuestion').serialize(),
+          success: function(data) {
+            if(data.status == 1){
+              Materialize.toast('Participante&nbsp;<span class="yellow-text">registrado!<span>', 4000, 'rounded')
+              competitors();
+            } else if(data.status == 2){
+              Materialize.toast('Error del servidor!', 4000, 'rounded')
+            }
+          }
+        })
+    }
+  });
+
+  $('#btnAddQuestion').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data('id');
+    var name = button.data('name');
+    var descr = button.data('descr');
+    var icon = button.data('icon');
+    var modal = $(this);
+    $('.form-group').each(function(index, el) {
+      $(this).removeClass('has-error');
+    });
+    $('.help-block').each(function(index, el) {
+      $(this).html('');
+    });
+    if(typeof name != 'undefined'){
+      modal.find('.modal-title').text('Actualizar tipo incidente');
+      modal.find('#id').val(id);
+      modal.find('#name').val(name);
+      modal.find('#descr').val(descr);
+      modal.find('#icon').val(icon);
+      modal.find('#update').val('true');
+    } else {
+      modal.find('.modal-title').text('Nuevo tipo incidente');
+      modal.find('#id').val('0');
+      modal.find('#name').val('');
+      modal.find('#descr').val('');
+      modal.find('#icon').val('');
+      modal.find('#update').val('false');
+    }
+  });
+
+  $('#btnDeleteQuestion').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data('id');
+    var name = button.data('name');
+    var modal = $(this);
+    modal.find('b#tipo').text(name);
+    modal.find('a#delete-button').attr('href',''+id);
+  });
+
+  //Funciones para vistas
   competitors();
   teams();
 
@@ -156,5 +228,6 @@ $(document).ready(function(){
       }
     });
   }
+
 
 });

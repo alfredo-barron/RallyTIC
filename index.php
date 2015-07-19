@@ -24,21 +24,13 @@ $is_logged = function ($app) {
     if(isset($app->session['user']) and !is_null($app->session['user'])){
       return true;
     } else {
-      $app->redirect($app->urlFor('dashboard'));
+      $app->redirect($app->urlFor('home'));
     }
   };
 };
 
 $app->get('/', $has_db($app), function() use($app) {
-  if (!isset($_SESSION['user'])) {
-    return $app->render('index.public.twig');
-  } else {
-    $user = $_SESSION['user'];
-    $u = new User();
-    $app->view()->setData('user', $user);
-    $data['competitors'] = $u->competitors();
-    return $app->render('index.twig',$data);
-  }
+  return $app->render('index.public.twig');
 })->name('home');
 
 $app->post('/login', function() use($app){
