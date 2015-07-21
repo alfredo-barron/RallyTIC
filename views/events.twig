@@ -92,3 +92,31 @@
   </div>
 </div>
 {% endblock %}
+{% block js %}
+  <script>
+    $(document).ready(function(){
+
+      $('#content_btn').hide();
+      $('#btnAgregar').attr('disabled',false);
+
+
+      //Pendiente
+      $('#btnAgregar').click(function(event) {
+        var equipo = $('#n_teams option:selected').val();
+        if (equipo != "") {
+          for (var i = 1; i <= equipo; i++) {
+            $('#content').append('<div class="input-field col s8 offset-s2 m8 offset-m2"><input type="text" class="validate" id="_name_team_'+i+'" name="_name_team_'+i+'" autocomplete="off"><label for="_name_team_'+i+'"> Nombre del equipo '+i+'</label></div>');
+          };
+          $('#btnAgregar').attr('disabled',true);
+          $('#content_btn').show();
+        };
+      });
+
+      $('#btnCancelarTeam').click(function(event) {
+        //$('#btnAgregar').attr('disabled',false);
+        $('#content_btn').hide();
+      });
+
+  });
+  </script>
+{% endblock %}

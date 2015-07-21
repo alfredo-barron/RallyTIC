@@ -59,6 +59,21 @@ $app->get('/puntuajes', $auth($app), function () use ($app){
 })->name('score');
 
 //Acciones
+$app->post("/new-station", function () use ($app){
+  $s = new Station();
+  $s = $s->save($app->request->post());
+  if (isset($s->id)) {
+    print json_encode(array(
+          "status" => 1
+          ));
+  } else {
+    print json_encode(array(
+          "status" => 2
+          ));
+  }
+})->name('new-station-post');
+
+
 $app->post("/new-question", function () use ($app){
   $q = new Question();
   $q = $q->save($app->request->post());
@@ -104,7 +119,7 @@ $app->get("/activitys", function () use ($app){
 })->name('activitys');
 
 $app->get("/questions", function () use ($app){
-  $a = new Activity();
-  $a = $a->activities();
-  print json_encode($a);
+  $q = new Question();
+  $q = $q->questions();
+  print json_encode($q);
 })->name('questions');

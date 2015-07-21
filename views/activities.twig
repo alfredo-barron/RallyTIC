@@ -74,3 +74,88 @@
 </div>
 </div>
 {% endblock %}
+{% block js %}
+  <script>
+  $(document).ready(function() {
+
+    activitys();
+
+    $(document).on('click', 'a[data-toggle="modal_activity"]', function(event) {
+      $('#newActivity').hide();
+      $('#viewActivity').show();
+      var link = $(this);
+      var id = link.data('id');
+      team(id);
+    });
+
+    $('#closeViewActivity').click(function(event) {
+      $('#viewActivity').hide();
+    });
+
+   /* $('#btnNewActivity').click(function(event) {
+      var url = $('#formNewActivity').attr('action');
+      var name = $('#name_activity').val();
+      var station_id = $('#station_id').val();
+      var question_id = $('#question_id').val();
+      var intents = $('#intents').val();
+      var time = $('#time').val();
+      var penalty = $('#penalty').val();
+      if ((name == "" && intents == "" && time = "") || (name == "" || intents == "" || time = "")) {
+        Materialize.toast('Datos incompletos!', 4000, 'rounded')
+      } else {
+        $.ajax({
+            url: url,
+            type: "POST",
+            dataType: "json",
+            data: $('#formNewActivity').serialize(),
+            success: function(data) {
+              if(data.status == 1){
+                Materialize.toast('Actividad&nbsp;<span class="yellow-text">registrada!<span>', 4000, 'rounded')
+                teams();
+                $('#newActivity').hide();
+              } else if(data.status == 2){
+                Materialize.toast('Error del servidor!', 4000, 'rounded')
+              }
+            }
+          })
+      }
+    }); */
+
+    function activitys () {
+      $.ajax({
+        url: 'activitys',
+        type: 'GET',
+        dataType: 'json',
+        data: '',
+        success: function(data) {
+          if (data.length) {
+            $('#listViewActivitys').empty();
+            for (var i = data.length - 1; i >= 0; i--) {
+              $('#listViewActivitys').append('<a href="javascript:void(0);" class="collection-item avatar" data-toggle="modal_activity" data-id="'+data[i].id+'"><i class="material-icons circle red left">group</i> Equipo <br> <b>'+data[i].name+'</b></a>');
+            };
+          } else {
+            //$('#listViewTeams').append('<h4>Sin grupos</h4>');
+            $('#newActivity').show();
+          };
+        }
+      });
+    }
+
+
+    function activity (id){
+      $.ajax({
+        url: 'activities/'+id,
+        type: 'GET',
+        dataType: 'json',
+        data: '',
+        success: function(data) {
+          $('#view_nameactivity').empty();
+          $('#view_nameactivity').html('Equipo <b>'+data.name+'</b> <p>Contraseña: '+data.password+'<p/>');
+        }
+      });
+    }
+
+
+  });
+  </script>
+{% endblock %}

@@ -20,9 +20,9 @@ class Station {
     $name = trim($post['name']);
     $lat = trim($post['lat']);
     $lng = trim($post['lng']);
-    $st = $this->db->prepare("INSERT INTO station(name, lat, lng) VALUES(?,?,?)");
+    $st = $this->db->prepare("INSERT INTO stations(name, lat, lng) VALUES(?,?,?)");
     $st->execute(array($name,$lat,$lng));
-    $st = $this->db->prepare("SELECT * FROM questions WHERE name = ?");
+    $st = $this->db->prepare("SELECT * FROM stations WHERE name = ?");
     $st->setFetchMode(PDO::FETCH_OBJ);
     $st->execute(array($name));
     return $st->fetch();

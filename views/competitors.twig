@@ -1,14 +1,5 @@
 {% extends 'base.twig' %}
 
-{% block css %}
-  <style>
-    .map {
-      display: block;
-      width: 100%;
-      height: 500px;
-    }
-  </style>
-{% endblock %}
 {% block content %}
   <div class="section no-pad-bot" id="index-banner">
     <br><br>
@@ -77,19 +68,63 @@
 {% block js %}
  <script>
  $(document).ready(function() {
-    var map = new GMaps({
-          div: '#map',
-          lat: 22.0030923,
-          lng: -99.0203763,
-          zoom: 15,
-          enableNewStyle: true,
-      });
 
-     GMaps.geolocate({
-        success: function(position) {
-          map.setCenter(position.coords.latitude, position.coords.longitude);
-        }
-      });
+    competitors();
+
+    $('#newCompetitor').hide();
+
+    $('#btnCancelarCompetitor').click(function(event) {
+      $('#newCompetitor').hide();
+    });
+
+    $('#btnAddCompetitor').click(function(event) {
+      $('#newCompetitor').show();
+    });
+
+    $('#btnNewCompetitor').click(function(event) {
+      var url = $('#formNewCompetitor').attr('action');
+      var first_name = $('#first_name').val();
+      var last_name = $('#last_name').val();
+      var email = $('#email').val();
+      var username = $('#username').val();
+      if ((first_name == "" && last_name == "" && email == "" && username == "") || (first_name == "" || last_name == "" || email == "" || username == "")) {
+        Materialize.toast('Datos incompletos!', 4000, 'rounded')
+      } else {
+        $.ajax({
+            url: url,
+            type: "POST",
+            dataType: "json",
+            data: $('#formNewCompetitor').serialize(),
+            success: function(data) {
+              if(data.status == 1){
+                Materialize.toast('Participante&nbsp;<span class="yellow-text">registrado!<span>', 4000, 'rounded')
+                competitors();
+              } else if(data.status == 2){
+                Materialize.toast('Error del servidor!', 4000, 'rounded')
+              }
+            }
+          })
+      }
+    });
+
+    function competitors () {
+        $.ajax({
+          url: 'competitors',
+          type: 'GET',
+          dataType: 'json',
+          data: '',
+          success: function(data) {
+            if (data.length) {
+              for (var i = data.length - 1; i >= 0; i--) {
+                $('#listViewCompetitors').append('<a href="#'+data[i].id+'" class="collection-item avatar"><i class="material-icons circle blue left">person</i><b>'+data[i].first_name+'</b> <br> '+data[i].last_name+'</a>');
+              };
+            } else {
+              //$('#listViewCompetitors').append('<h4>Sin participantes</h4>');
+              $('#newCompetitor').show();
+            };
+          }
+        });
+      }
 
  });
  </script>
