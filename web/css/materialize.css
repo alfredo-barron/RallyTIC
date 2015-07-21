@@ -5725,6 +5725,49 @@ small {
 .tabs .tab {
   padding: 0; }
 
+.tabs1 {
+  position: relative;
+  height: 48px;
+  background-color: #fff;
+  margin: 0 auto;
+  width: 100%;
+  white-space: nowrap; }
+  .tabs1 .tab1 {
+    display: block;
+    float: left;
+    text-align: center;
+    line-height: 48px;
+    height: 48px;
+    padding: 0 20px;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    width: 15%; }
+    .tabs1 .tab1 a {
+      color: #ee6e73;
+      display: block;
+      width: 100%;
+      height: 100%;
+      -webkit-transition: color .28s ease;
+      -moz-transition: color .28s ease;
+      -o-transition: color .28s ease;
+      -ms-transition: color .28s ease;
+      transition: color .28s ease; }
+      .tabs1 .tab1 a:hover {
+        color: #f9c9cb; }
+    .tabs1 .tab1.disabled a {
+      color: #f9c9cb;
+      cursor: default; }
+  .tabs1 .indicator {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: #f6b2b5;
+    will-change: left, right; }
+
+.tabs1 .tab1 {
+  padding: 0; }
+
 .material-tooltip {
   padding: 10px 8px;
   font-size: 1rem;
@@ -8142,4 +8185,19 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   height: 550px;
   overflow-y: scroll;
   position: relative;
+}
+
+.table-box{
+  height: 430px;
+  overflow-y: scroll;
+  position: relative;
+}
+.img-responsive,
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }

@@ -1,27 +1,35 @@
 {% extends 'base.twig' %}
+
 {% block content %}
-<div id="i1">
-  <div class="section no-pad-bot" id="index-banner">
-    <br>
-    <div class="row">
-      <div class="col s12 m6">
-        <h1 class="header center orange-text">Rally TIC</h1>
-        <br>
-        <h5 class="header center light">Sistema de rally para eventos competitivos orientado hacia participantes a pie o en vehículo, donde deben reunirse en un sitio determinado después de haber realizado varias actividades.</h5>
-        <br>
-      </div>
-      <div class="col s12 m6 z-depth-1 white">
-        <div class="row">
-          <div class="col s12 m12">
-            <ul class="tabs">
-              <li class="tab col s6"><a class="active" href="#test1">Iniciar</a></li>
-              <li class="tab col s6"><a href="#test2">Registrate</a></li>
-            </ul>
+<div class="section no-pad-bot" id="index-banner">
+  <br>
+  <div class="row">
+    <div class="col s12 m6">
+       <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="{{ asset('RallyTIC1.png') }}" class="img-responsive">
           </div>
-          <div id="test1" class="col s12 m12">
-            <br>
-            <form action="{{ urlFor('login') }}" id="formLogin" name="formLogin">
-             <div class="row">
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">Rally TIC<i class="material-icons right">more_vert</i></span>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Rally TIC<i class="material-icons right">close</i></span>
+            <p>Sistema de rally para eventos competitivos orientado hacia participantes a pie o en vehículo, donde deben reunirse en un sitio determinado después de haber realizado varias actividades.</p>
+          </div>
+        </div>
+    </div>
+    <div class="col s12 m6 z-depth-1 white">
+      <div class="row">
+        <div class="col s12 m12">
+          <ul class="tabs">
+            <li class="tab col s6"><a class="active" href="#test1">Iniciar</a></li>
+            <li class="tab col s6"><a href="#test2">Registrate</a></li>
+          </ul>
+        </div>
+        <div id="test1" class="col s12 m12">
+          <br>
+          <form action="{{ urlFor('login') }}" id="formLogin" name="formLogin">
+            <div class="row">
               <div class="input-field col s10 offset-s1 m10 offset-m1">
                 <input id="email" name="email" type="email" class="validate">
                 <label for="email">Correo electrónico</label>
@@ -36,79 +44,78 @@
             <a id="btnIn" name="btnIn" class="waves-effect red lighten-1 btn-large col s10 offset-s1 m10 offset-m1">INICIAR</a>
           </form>
         </div>
-          <div id="test2" class="col s12 m12">
+        <div id="test2" class="col s12 m12">
+          <br>
+          <form action="{{ urlFor('new-user-post') }}" id="formRegister" name="formRegister">
+            <div class="row">
+              <div class="input-field col s10 offset-s1 m10 offset-m1">
+                <input id="_email" name="email" type="email" class="validate">
+                <label for="_email">Correo electrónico</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s10 offset-s1 m10 offset-m1">
+                <input id="_username" name="username" type="text" class="validate">
+                <label for="_username">Usuario</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s10 offset-s1 m10 offset-m1">
+                <input id="_password" name="password" type="password" class="validate">
+                <label for="_password">Contraseña</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col offset-s1 s5 offset-m1 m5">
+                <input name="rol" type="radio" id="org" value="O" checked="true">
+                <label for="org">Organizador</label>
+              </div>
+              <div class="input-field col s5 m5">
+                <input name="rol" type="radio" id="com" value="P">
+                <label for="com">Participante</label>
+              </div>
+            </div>
             <br>
-            <form action="{{ urlFor('new-user-post') }}" id="formRegister" name="formRegister">
-              <div class="row">
-                <div class="input-field col s10 offset-s1 m10 offset-m1">
-                  <input id="_email" name="email" type="email" class="validate">
-                  <label for="_email">Correo electrónico</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s10 offset-s1 m10 offset-m1">
-                  <input id="_username" name="username" type="text" class="validate">
-                  <label for="_username">Usuario</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s10 offset-s1 m10 offset-m1">
-                  <input id="_password" name="password" type="password" class="validate">
-                  <label for="_password">Contraseña</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col offset-s1 s5 offset-m1 m5">
-                  <input name="rol" type="radio" id="org" value="O" checked="true">
-                  <label for="org">Organizador</label>
-                </div>
-                <div class="input-field col s5 m5">
-                  <input name="rol" type="radio" id="com" value="P">
-                  <label for="com">Participante</label>
-                </div>
-              </div>
-              <br>
-              <a id="btnSigIn" name="btnSigIn" class="waves-effect red lighten-1 btn-large col s10 offset-s1 m10 offset-m1">COMIENZA</a>
-            </form>
-          </div>
+            <a id="btnSigIn" name="btnSigIn" class="waves-effect red lighten-1 btn-large col s10 offset-s1 m10 offset-m1">COMIENZA</a>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  <div class="section">
-      <!--   Icon Section   -->
-      <div class="row">
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons medium">flag</i></h2>
-            <h5 class="center">Eventos</h5>
+</div>
+<div class="section">
+    <!--   Icon Section   -->
+    <div class="row">
+      <div class="col s12 m4">
+        <div class="icon-block">
+          <h2 class="center light-blue-text"><i class="material-icons medium">flag</i></h2>
+          <h5 class="center">Eventos</h5>
 
-            <p class="light center-align">Es un conjunto de actividades en sencuencia para participantes ya sea individual o en grupo para lograr un objetivo en competencias.</p>
-          </div>
-        </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons medium">directions_walk</i></h2>
-            <h5 class="center">Actividades</h5>
-
-            <p class="light center-align">Es aquella acción o tarea realizada por un participante o un grupo de participantes en un sitio determinado con un objetivo.</p>
-          </div>
-        </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons medium">group</i></h2>
-            <h5 class="center">Participantes</h5>
-
-            <p class="light center-align">Es aquella persona o grupo de personas que participan en un conjunto de actividades o en un evento convocado.</p>
-          </div>
+          <p class="light center-align">Es un conjunto de actividades en sencuencia para participantes ya sea individual o en grupo para lograr un objetivo en competencias.</p>
         </div>
       </div>
 
+      <div class="col s12 m4">
+        <div class="icon-block">
+          <h2 class="center light-blue-text"><i class="material-icons medium">directions_walk</i></h2>
+          <h5 class="center">Actividades</h5>
+
+          <p class="light center-align">Es aquella acción o tarea realizada por un participante o un grupo de participantes en un sitio determinado con un objetivo.</p>
+        </div>
+      </div>
+
+      <div class="col s12 m4">
+        <div class="icon-block">
+          <h2 class="center light-blue-text"><i class="material-icons medium">group</i></h2>
+          <h5 class="center">Participantes</h5>
+
+          <p class="light center-align">Es aquella persona o grupo de personas que participan en un conjunto de actividades o en un evento convocado.</p>
+        </div>
+      </div>
     </div>
-    <br><br>
-</div>
+
+  </div>
+  <br><br>
  <div id="about" class="modal">
   <div class="modal-content">
     <h4>Acerca de Rally TIC</h4>

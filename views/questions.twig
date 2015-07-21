@@ -1,0 +1,124 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+  <div class="section no-pad-bot" id="index-banner">
+    <br><br>
+    <h4 class="header">Catálogo de preguntas/acertijos</h4>
+    <div class="row">
+   <div style="height: 557px;" class="col s12 m12 z-depth-0 indigo lighten-4">
+      <br>
+      <div class="right">
+        <a id="btnAddQuestion" name="btnAddTeam" class="waves-effect waves-light btn">Nueva pregunta/acertijo</a>
+      </div>
+      <br><br><br>
+      <!--<div id="newTeam">
+        <div class="row">
+          <div class="col offset-s1 s10 offset-m1 m10 z-depth-1 white">
+            <form action="{{ urlFor('new-team-post') }}" id="formNewTeam">
+              <br>
+              <div class="row">
+                <div class="input-field col s10 offset-s1 m10 offset-m1">
+                  <input id="name_team" name="name" type="text" class="validate">
+                  <label for="name">Nombre</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s10 offset-s1 m10 offset-m1">
+                  <input id="password_team" name="password" type="password" class="validate">
+                  <label for="password">Contraseña</label>
+                </div>
+              </div>
+              <br>
+              <div class="center">
+                <a id="btnCancelTeam" name="btnCancelTeam" class="waves-effect red lighten-1 btn">Cancelar</a>
+                <a id="btnNewTeam" name="btnNewTeam" class="waves-effect green lighten-1 btn">Aceptar</a>
+              </div>
+              <br>
+            </form>
+          </div>
+        </div>
+      </div>-->
+      <!--<div id="viewTeam">
+         <div class="row">
+          <div class="col offset-s1 s10 offset-m1 m10">
+            <div class="card">
+              <div class="card-content">
+                <span class="card-title black-text"><div id="view_nameteam"></div></span>-->
+                <!--<div class="collection">
+                  <a href="javascript:void(0);" class="collection-item">Alfredo Barrón Rodríguez</a>
+                  <a href="javascript:void(0);" class="collection-item">Alberto Guerrero Vazquez</a>
+                  <a href="javascript:void(0);" class="collection-item">Cruz Ulises Larraga Ramirez</a>
+                  <a href="javascript:void(0);" class="collection-item">Brenda Citlali Jonguitud Ramos</a>
+                </div>-->
+              <!--</div>
+              <div class="card-action">
+                <a href="javascript:void(0);" id="closeViewTeam" name="closeViewTeam">Cerrar</a>
+              </div>
+            </div>
+          </div>-->
+          <div id="listQuestions">
+            <table class="hoverable white">
+              <thead>
+                <th class="col m1 text-center">#</th>
+                <th class="col m5 text-center">Pregunta</th>
+                <th class="col m2 text-center">Respuesta</th>
+                <th class="col m2 text-center">Pista</th>
+                {#<th class="col m2 text-center">Opciones</th>#}
+              </thead>
+            </table>
+            <div class="table-box white">
+              <table class="hoverable white">
+                <tbody>
+                 {% for qu in questions %}
+                  <tr>
+                    <td class="col m1 text-center">{{ qu.id }}</td>
+                    <td class="col m5 text-center">{{ qu.message }}</td>
+                    <td class="col m2 text-center">{{ qu.answer }}</td>
+                    <td class="col m2 text-center">{{ qu.track }}</td>
+                    {#<td class="col m2 text-center">
+                      <div class="btn-group" role="group">
+                        <button class="btn-floating blue" title="Editar" data-toggle="modal" data-target="#new" data-id="{{ qu.id }}" data-name="{{ qu.name }}" data-descr="{{ qu.descr }}" data-icon="{{ qu.icon }}"><i class="material-icons">create</i></button>
+                        <button class="btn-floating red" title="Eliminar" data-toggle="modal" data-target="#delete" data-id="{{ qu.id }}" data-name="{{ qu.name }}"><i class="material-icons">delete</i></button>
+                      </div>
+                    </td>#}
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+    </div>
+ </div>
+<div id="newQuestion" class="modal modal-fixed-footer white z-depth-1">
+  <div class="modal-content">
+    <form id="formNewQuestion" action="{{ urlFor('new-question-post') }}">
+      <h4 class="modal-title">Pregunta o Acertijo</h4>
+        <div class="row">
+          <div class="input-field col offset-s1 s10 offset-m1 m10">
+            <textarea id="message" name="message" class="materialize-textarea"></textarea>
+            <label for="message">Pregunta o acertijo</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s10 offset-s1 m10 offset-m1">
+            <input id="answer" name="answer" type="text" class="validate">
+            <label for="answer">Respuesta</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s10 offset-s1 m10 offset-m1">
+            <input id="track" name="track" type="text" class="validate">
+            <label for="track">Pista</label>
+          </div>
+        </div>
+        {{ f.hide('id', 0) }}
+        {{ f.hide('update','false') }}
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a id="btnDeleteQuestion" href="javascript:void(0);" class="modal-action modal-close waves-effect btn red lighten-1">Cancelar</a>
+    <a id="btnNewQuestion" href="javascript:void(0);" class="waves-effect btn green lighten-1">Guardar</a>
+  </div>
+</div>
+</div>
+{% endblock %}

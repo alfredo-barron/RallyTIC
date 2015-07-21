@@ -42,21 +42,3 @@ $app->post("/new-team", function () use ($app){
           ));
   }
 })->name('new-team-post');
-
-$app->get("/competitors", function () use ($app){
-  $u = new User();
-  $u = $u->competitors();
-  print json_encode($u);
-})->name('competitors');
-
-$app->get("/teams", function () use ($app){
-  $t = new Team();
-  $t = $t->teams();
-  print json_encode($t);
-})->name('teams');
-
-$app->get("/team/:id", function ($id) use ($app){
-  $t = new Team();
-  $t = $t->team($id);
-  print json_encode($t);
-})->name('team');

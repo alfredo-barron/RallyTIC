@@ -23,6 +23,53 @@ $(document).ready(function(){
       $('#content_btn').hide();
     });
 
+
+  //Events
+
+
+  //Activitys
+  $(document).on('click', 'a[data-toggle="modal_activity"]', function(event) {
+    $('#newActivity').hide();
+    $('#viewActivity').show();
+    var link = $(this);
+    var id = link.data('id');
+    team(id);
+  });
+
+  $('#closeViewActivity').click(function(event) {
+    $('#viewActivity').hide();
+  });
+
+ /* $('#btnNewActivity').click(function(event) {
+    var url = $('#formNewActivity').attr('action');
+    var name = $('#name_activity').val();
+    var station_id = $('#station_id').val();
+    var question_id = $('#question_id').val();
+    var intents = $('#intents').val();
+    var time = $('#time').val();
+    var penalty = $('#penalty').val();
+    if ((name == "" && intents == "" && time = "") || (name == "" || intents == "" || time = "")) {
+      Materialize.toast('Datos incompletos!', 4000, 'rounded')
+    } else {
+      $.ajax({
+          url: url,
+          type: "POST",
+          dataType: "json",
+          data: $('#formNewActivity').serialize(),
+          success: function(data) {
+            if(data.status == 1){
+              Materialize.toast('Actividad&nbsp;<span class="yellow-text">registrada!<span>', 4000, 'rounded')
+              teams();
+              $('#newActivity').hide();
+            } else if(data.status == 2){
+              Materialize.toast('Error del servidor!', 4000, 'rounded')
+            }
+          }
+        })
+    }
+  }); */
+
+  //Equipos y participantes
   $('#btnCancelarCompetitor').click(function(event) {
     $('#newCompetitor').hide();
   });
@@ -31,7 +78,6 @@ $(document).ready(function(){
     $('#newTeam').hide();
   });
 
-  //Equipos y participantes
   $('#btnAddCompetitor').click(function(event) {
     $('#newCompetitor').show();
   });
@@ -41,7 +87,7 @@ $(document).ready(function(){
     $('#newTeam').show();
   });
 
-  $(document).on('click', 'a[data-toggle="modal"]', function(event) {
+  $(document).on('click', 'a[data-toggle="modal_team"]', function(event) {
     $('#newTeam').hide();
     $('#viewTeam').show();
     var link = $(this);
@@ -104,6 +150,45 @@ $(document).ready(function(){
     }
   });
 
+  //Stations
+  $(document).on('click', 'a[data-toggle="modal_station"]', function(event) {
+    $('#newTeam').hide();
+    $('#viewTeam').show();
+    var link = $(this);
+    var id = link.data('id');
+    team(id);
+  });
+
+  $('#closeViewStation').click(function(event) {
+    $('#viewStation').hide();
+  });
+
+  $('#btnNewStation').click(function(event) {
+    var url = $('#formNewStation').attr('action');
+    var name = $('#name_station').val();
+    var lat = $('#lat_station').val();
+    var lng = $('#lng_station').val();
+    if ((name == "" && password == "") || (name == "" || password == "")) {
+      Materialize.toast('Datos incompletos!', 4000, 'rounded')
+    } else {
+      $.ajax({
+          url: url,
+          type: "POST",
+          dataType: "json",
+          data: $('#formNewStation').serialize(),
+          success: function(data) {
+            if(data.status == 1){
+              Materialize.toast('Estación&nbsp;<span class="yellow-text">registrada!<span>', 4000, 'rounded')
+              teams();
+              $('#newStation').hide();
+            } else if(data.status == 2){
+              Materialize.toast('Error del servidor!', 4000, 'rounded')
+            }
+          }
+        })
+    }
+  });
+
   //Questions
   $('#btnAddQuestion').click(function(event) {
     $('#newQuestion').openModal();
@@ -124,7 +209,7 @@ $(document).ready(function(){
           data: $('#formNewQuestion').serialize(),
           success: function(data) {
             if(data.status == 1){
-              Materialize.toast('Participante&nbsp;<span class="yellow-text">registrado!<span>', 4000, 'rounded')
+              Materialize.toast('Pregunta y/o acertijo&nbsp;<span class="yellow-text">registrado!<span>', 4000, 'rounded')
               competitors();
             } else if(data.status == 2){
               Materialize.toast('Error del servidor!', 4000, 'rounded')
@@ -176,6 +261,9 @@ $(document).ready(function(){
   //Funciones para vistas
   competitors();
   teams();
+  stations();
+  activitys();
+  questions();
 
   function competitors () {
     $.ajax({
@@ -189,7 +277,7 @@ $(document).ready(function(){
             $('#listViewCompetitors').append('<a href="#'+data[i].id+'" class="collection-item avatar"><i class="material-icons circle blue left">person</i><b>'+data[i].first_name+'</b> <br> '+data[i].last_name+'</a>');
           };
         } else {
-          $('#listViewCompetitors').append('<h4>Sin participantes</h4>');
+          //$('#listViewCompetitors').append('<h4>Sin participantes</h4>');
           $('#newCompetitor').show();
         };
       }
@@ -206,7 +294,7 @@ $(document).ready(function(){
         if (data.length) {
           $('#listViewTeams').empty();
           for (var i = data.length - 1; i >= 0; i--) {
-            $('#listViewTeams').append('<a href="javascript:void(0);" class="collection-item avatar" data-toggle="modal" data-id="'+data[i].id+'"><i class="material-icons circle red left">group</i> Equipo <br> <b>'+data[i].name+'</b></a>');
+            $('#listViewTeams').append('<a href="javascript:void(0);" class="collection-item avatar" data-toggle="modal_team" data-id="'+data[i].id+'"><i class="material-icons circle red left">group</i> Equipo <br> <b>'+data[i].name+'</b></a>');
           };
         } else {
           //$('#listViewTeams').append('<h4>Sin grupos</h4>');
@@ -216,7 +304,67 @@ $(document).ready(function(){
     });
   }
 
-  function team(id){
+  function stations () {
+    $.ajax({
+      url: 'stations',
+      type: 'GET',
+      dataType: 'json',
+      data: '',
+      success: function(data) {
+        if (data.length) {
+          $('#listViewStations').empty();
+          for (var i = data.length - 1; i >= 0; i--) {
+            $('#listViewStations').append('<a href="javascript:void(0);" class="collection-item avatar" data-toggle="modal_station" data-id="'+data[i].id+'"><i class="material-icons circle red left">group</i> Equipo <br> <b>'+data[i].name+'</b></a>');
+          };
+        } else {
+          //$('#listViewTeams').append('<h4>Sin grupos</h4>');
+          $('#newStation').show();
+        };
+      }
+    });
+  }
+
+  function activitys () {
+    $.ajax({
+      url: 'activitys',
+      type: 'GET',
+      dataType: 'json',
+      data: '',
+      success: function(data) {
+        if (data.length) {
+          $('#listViewActivitys').empty();
+          for (var i = data.length - 1; i >= 0; i--) {
+            $('#listViewActivitys').append('<a href="javascript:void(0);" class="collection-item avatar" data-toggle="modal_activity" data-id="'+data[i].id+'"><i class="material-icons circle red left">group</i> Equipo <br> <b>'+data[i].name+'</b></a>');
+          };
+        } else {
+          //$('#listViewTeams').append('<h4>Sin grupos</h4>');
+          $('#newActivity').show();
+        };
+      }
+    });
+  }
+
+  function questions () {
+    $.ajax({
+      url: 'questions',
+      type: 'GET',
+      dataType: 'json',
+      data: '',
+      success: function(data) {
+        if (data.length) {
+          $('#listViewQuestions').empty();
+          for (var i = data.length - 1; i >= 0; i--) {
+            $('#listViewQuestions').append('<a href="javascript:void(0);" class="collection-item avatar" data-toggle="modal_question" data-id="'+data[i].id+'"><i class="material-icons circle red left">group</i> Equipo <br> <b>'+data[i].name+'</b></a>');
+          };
+        } else {
+          //$('#listViewTeams').append('<h4>Sin grupos</h4>');
+          $('#newQuestion').show();
+        };
+      }
+    });
+  }
+
+  function team (id){
     $.ajax({
       url: 'team/'+id,
       type: 'GET',
@@ -225,6 +373,45 @@ $(document).ready(function(){
       success: function(data) {
         $('#view_nameteam').empty();
         $('#view_nameteam').html('Equipo <b>'+data.name+'</b> <p>Contraseña: '+data.password+'<p/>');
+      }
+    });
+  }
+
+  function station (id){
+    $.ajax({
+      url: 'station/'+id,
+      type: 'GET',
+      dataType: 'json',
+      data: '',
+      success: function(data) {
+        $('#view_namestation').empty();
+        $('#view_namestation').html('Equipo <b>'+data.name+'</b> <p>Contraseña: '+data.password+'<p/>');
+      }
+    });
+  }
+
+  function activity (id){
+    $.ajax({
+      url: 'activities/'+id,
+      type: 'GET',
+      dataType: 'json',
+      data: '',
+      success: function(data) {
+        $('#view_nameactivity').empty();
+        $('#view_nameactivity').html('Equipo <b>'+data.name+'</b> <p>Contraseña: '+data.password+'<p/>');
+      }
+    });
+  }
+
+  function question (id){
+    $.ajax({
+      url: 'question/'+id,
+      type: 'GET',
+      dataType: 'json',
+      data: '',
+      success: function(data) {
+        $('#view_namequestion').empty();
+        $('#view_namequestion').html('Equipo <b>'+data.name+'</b> <p>Contraseña: '+data.password+'<p/>');
       }
     });
   }

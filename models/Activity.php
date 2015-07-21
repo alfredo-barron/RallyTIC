@@ -29,4 +29,18 @@ class Activity {
     return $st->fetch();
   }
 
+  public function activities() {
+    $st = $this->db->prepare("SELECT id,name FROM teams ORDER BY name DESC");
+    $st->setFetchMode(PDO::FETCH_OBJ);
+    $st->execute();
+    return $st->fetchAll();
+  }
+
+  public function activity($id) {
+    $st = $this->db->prepare("SELECT id,name,password FROM teams WHERE id = ?");
+    $st->setFetchMode(PDO::FETCH_OBJ);
+    $st->execute(array($id));
+    return $st->fetch();
+  }
+
 }

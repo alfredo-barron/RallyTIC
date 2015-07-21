@@ -25,17 +25,18 @@
   {% if user.id is defined %}
     <div class="row">
       <div class="col s12">
-        <ul class="tabs">
+        <ul class="tabs1">
           {% if user.rol == "O" %}
-            <li class="tab col s2 m3"><a class="active" href="#tab1">Inicio</a></li>
-            <li class="tab col s2 m3"><a href="#tab2">Eventos</a></li>
-            <li class="tab col s2 m3"><a href="#tab3">Actividades</a></li>
-            <li class="tab col s2 m3"><a href="#tab4">Participantes</a></li>
-            <li class="tab col s2 m3"><a href="#tab5">Preguntas/Acertijos</a></li>
+            <li class="tab1 col s2 m2"><a class="active" href="{{ urlFor('dashboard') }}">Inicio</a></li>
+            <li class="tab1 col s2 m2"><a href="{{ urlFor('event') }}">Eventos</a></li>
+            <li class="tab1 col s2 m2"><a href="{{ urlFor('activity') }}">Actividades</a></li>
+            <li class="tab1 col s2 m2"><a href="{{ urlFor('competitor') }}">Participantes</a></li>
+            <li class="tab1 col s2 m2"><a href="{{ urlFor('station') }}">Estaciones</a></li>
+            <li class="tab1 col s2 m2"><a href="{{ urlFor('question') }}">Preguntas/Acertijos</a></li>
           {% elseif user.rol == "P" %}
-            <li class="tab col s4 m4"><a class="active" href="#tab6">Eventos</a></li>
-            <li class="tab col s4 m4"><a href="#tab7">Grupos</a></li>
-            <li class="tab col s4 m4"><a href="#tab8">Puntuajes</a></li>
+            <li class="tab1 col s4 m4"><a href="{{ urlFor('events') }}">Eventos</a></li>
+            <li class="tab1 col s4 m4"><a href="{{ urlFor('competitor_team') }}">Equipos</a></li>
+            <li class="tab1 col s4 m4"><a href="{{ urlFor('score') }}">Puntuajes</a></li>
           {% endif %}
         </ul>
       </div>

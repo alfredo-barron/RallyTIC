@@ -28,4 +28,18 @@ class Station {
     return $st->fetch();
   }
 
+  public function stations() {
+    $st = $this->db->prepare("SELECT id,name FROM stations ORDER BY name DESC");
+    $st->setFetchMode(PDO::FETCH_OBJ);
+    $st->execute();
+    return $st->fetchAll();
+  }
+
+  public function station($id) {
+    $st = $this->db->prepare("SELECT id,name,lat,lng FROM stations WHERE id = ?");
+    $st->setFetchMode(PDO::FETCH_OBJ);
+    $st->execute(array($id));
+    return $st->fetch();
+  }
+
 }
