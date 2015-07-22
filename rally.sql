@@ -69,10 +69,9 @@ create table activities(
   name text, --A,B,C
   station_id int, --Estacion
   question_id int, --Pregunta
-  intents int --Numero de intentos
+  intents int, --Numero de intentos
   time int, --No sobrepasar los 5 minutos
-  penalty int, --Castigo
-  status boolean default false,
+  penalty boolean default false, --Castigo
   created_at timestamp not null default now(),
   updated_at timestamp not null default now()
 );

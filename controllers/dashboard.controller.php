@@ -15,8 +15,12 @@ $app->get('/eventos', $auth($app), function () use ($app){
 
 $app->get('/actividades', $auth($app), function () use ($app){
   $user = $_SESSION['user'];
+  $s = new Station();
+  $q = new Question();
   $app->view()->setData('user', $user);
-  return $app->render('activities.twig');
+  $data['stations'] = $s->stations();
+  $data['questions'] = $q->questions();
+  return $app->render('activities.twig',$data);
 })->name('activity');
 
 $app->get('/participantes', $auth($app), function () use ($app){

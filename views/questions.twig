@@ -148,6 +148,9 @@
               if(data.status == 1){
                 Materialize.toast('Pregunta y/o acertijo&nbsp;<span class="yellow-text">registrado!<span>', 4000, 'rounded')
                 competitors();
+                $('#message').val("");
+                $('#answer').val("");
+                $('#track').val("");
               } else if(data.status == 2){
                 Materialize.toast('Error del servidor!', 4000, 'rounded')
               }
