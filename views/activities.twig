@@ -1,171 +1,188 @@
 {% extends 'base.twig' %}
-
 {% block content %}
   <div class="section no-pad-bot" id="index-banner">
     <br><br>
     <h4 class="header">Diseño de actividades</h4>
     <div class="row">
- <div class="col s4 m4 z-depth-0 white">
-   <div class="box">
-     <div class="collection">
-      <a class="collection-item avatar" href="#!"><i class="material-icons circle orange left">directions_walk</i><b>Actividad A</b> <br>Estación</a>
-      <a class="collection-item avatar" href="#!"><i class="material-icons circle orange left">directions_walk</i><b>Acitividad B</b> <br>Con pregunta</a>
-      <a class="collection-item avatar" href="#!"><i class="material-icons circle orange left">directions_walk</i><b>Actividad C</b> <br>Con tiempo límite</a>
-      <a class="collection-item avatar" href="#!"><i class="material-icons circle orange left">directions_walk</i><b>Actividad D</b> <br>Con período de tiempo</a>
-    </div>
-   </div>
- </div>
- <div class="col s8 m8 z-depth-0 indigo lighten-4" style="height: 557px;">
-    <br>
-    <div class="right">
-        <a id="btnAddActivity" class="waves-effect waves-light btn">Nueva actividad</a>
-    </div>
-    <br><br><br>
-    <div class="nuevaActividad">
-      <div class="row">
-        <div class="col offset-s1 s10 offset-m1 m10 z-depth-1 white">
-          <form name="formRegister" id="formRegister" action="/Rally/new-user">
-            <br>
-            <div class="row">
-              <div class="col s5 offset-s1 m5 offset-m1">
-                <label>Lugar / Estación</label>
-                  <select id="station_id" name="station_id" class="browser-default">
-                    {% for st in stations %}
-                      <option value="{{ st.id }}">{{ st.name }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-              <div class="input-field col s5 m5">
-                <input type="number" min="0" max ="5" class="validate" name="time" id="time">
-                <label for="time">Tiempo limite / Minutos</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s5 offset-s1 m5 offset-m1">
-                <label>Pregunta / Acertijo</label>
-                  <select id="question_id" name="question_id" class="browser-default">
-                    {% for qu in questions %}
-                      <option value="{{ qu.id }}">Pregunta #{{ qu.id }}</option>
-                    {% endfor %}
-                  </select>
-              </div>
-              <div class="input-field col s5 m5">
-                <input type="number" min="0" max ="5" class="validate" name="time" id="time">
-                <label for="time">Número de intentos</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s5 offset-s1 m5 offset-m1">
-                <input type="text" class="validate" name="name" id="name">
-                <label for="name">Nombre</label>
-              </div>
-              <div class="switch col s5 m5 center">
+      <div class="col s4 m4 z-depth-0 white">
+        <div class="box">
+          <div class="collection">
+            <div id="listView"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col s8 m8 z-depth-0 indigo lighten-4" style="height: 557px;">
+        <br>
+        <div class="right">
+          <a id="btnAdd" class="waves-effect waves-light btn">Nueva actividad</a>
+        </div>
+        <br><br><br>
+        <div id="new">
+          <div class="row">
+            <div class="col offset-s1 s10 offset-m1 m10 z-depth-1 white">
+              <form name="formNew" id="formNew" action="{{ urlFor('new-activity-post') }}">
                 <br>
-                <label>Penalización</label><br>
-                <label>
-                  No
-                  <input type="checkbox" id="penalty" name="penalty" value="true">
-                  <span class="lever blue"></span>
-                  Si
-                </label>
+                <div class="row">
+                  <div class="col s5 offset-s1 m5 offset-m1">
+                    <label>Lugar / Estación</label>
+                      <select id="station_id" name="station_id" class="browser-default">
+                        <option value="" selected>Selecciona una opcion ...</option>
+                        {% for st in stations %}
+                          <option value="{{ st.id }}">{{ st.name }}</option>
+                        {% endfor %}
+                      </select>
+                  </div>
+                  <div class="input-field col s5 m5">
+                    <input type="number" min="0" max ="5" class="validate" name="time" id="time">
+                    <label for="time">Tiempo limite / Minutos</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s5 offset-s1 m5 offset-m1">
+                    <label>Pregunta / Acertijo</label>
+                    <select id="question_id" name="question_id" class="browser-default">
+                      <option value="" selected>Selecciona una opcion ...</option>
+                      {% for qu in questions %}
+                        <option value="{{ qu.id }}">Pregunta #{{ qu.id }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="input-field col s5 m5">
+                    <input type="number" min="0" max ="5" class="validate" name="intents" id="intents">
+                    <label for="time">Número de intentos</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s5 offset-s1 m5 offset-m1">
+                    <input type="text" class="validate" name="name" id="name">
+                    <label for="name">Nombre</label>
+                  </div>
+                  <div class="switch col s5 m5 center">
+                    <br>
+                    <label>Penalización</label><br>
+                    <label>No<input type="checkbox" name="penalty" value="1"><span class="lever blue"></span>Si</label>
+                  </div>
+                </div>
+                <br>
+                <div class="center">
+                  <a id="cancelNew" class="waves-effect red lighten-1 btn" href="#">Cancelar</a>
+                  <a id="btnNew" class="waves-effect green lighten-1 btn" href="#">Aceptar</a>
+                </div>
+                <br>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div id="view">
+          <div class="row">
+            <div class="col offset-s1 s10 offset-m1 m10">
+              <div class="card">
+                <div class="card-content">
+                  <span class="card-title black-text"><div id="view_name"></div></span>
+                </div>
+                <div class="card-action">
+                  <a href="javascript:void(0);" id="cancelView">Cerrar</a>
+                </div>
               </div>
             </div>
-            <br>
-            <div class="center">
-              <a class="waves-effect red lighten-1 btn" href="#">Cancelar</a>
-              <a class="waves-effect green lighten-1 btn" href="#">Aceptar</a>
-            </div>
-            <br>
-          </form>
+          </div>
         </div>
       </div>
     </div>
- </div>
-</div>
-</div>
+  </div>
+
+
 {% endblock %}
 {% block js %}
   <script>
-  $(document).ready(function() {
+    $(document).ready(function() {
+      activitys();
+      $('#new').hide();
+      $('#view').hide();
 
-    activitys();
+      $('#btnAdd').click(function(event) {
+        $('#view').hide();
+        $('#new').show();
+      });
 
-    $(document).on('click', 'a[data-toggle="modal_activity"]', function(event) {
-      $('#newActivity').hide();
-      $('#viewActivity').show();
-      var link = $(this);
-      var id = link.data('id');
-      team(id);
-    });
+      $('#cancelNew').click(function(event) {
+        $('#new').hide();
+      });
 
-    $('#closeViewActivity').click(function(event) {
-      $('#viewActivity').hide();
-    });
+      $('#cancelView').click(function(event) {
+        $('#view').hide();
+      });
 
-   /* $('#btnNewActivity').click(function(event) {
-      var url = $('#formNewActivity').attr('action');
-      var name = $('#name_activity').val();
-      var station_id = $('#station_id').val();
-      var question_id = $('#question_id').val();
-      var intents = $('#intents').val();
-      var time = $('#time').val();
-      var penalty = $('#penalty').val();
-      if ((name == "" && intents == "" && time = "") || (name == "" || intents == "" || time = "")) {
-        Materialize.toast('Datos incompletos!', 4000, 'rounded')
-      } else {
-        $.ajax({
-            url: url,
-            type: "POST",
-            dataType: "json",
-            data: $('#formNewActivity').serialize(),
-            success: function(data) {
-              if(data.status == 1){
-                Materialize.toast('Actividad&nbsp;<span class="yellow-text">registrada!<span>', 4000, 'rounded')
-                teams();
-                $('#newActivity').hide();
-              } else if(data.status == 2){
-                Materialize.toast('Error del servidor!', 4000, 'rounded')
+      $(document).on('click', 'a[data-toggle="modal"]', function(event) {
+        $('#new').hide();
+        $('#view').show();
+        var link = $(this);
+        var id = link.data('id');
+        activity(id);
+      });
+
+      $('#btnNew').click(function(event) {
+        var url = $('#formNew').attr('action');
+        var name = $('#name').val();
+        var intents = $('#intents').val();
+        var time = $('#time').val();
+        if ((name == "" && intents == "" && time == "") || (name == "" || intents == "" || time == "")) {
+          Materialize.toast('Datos incompletos!', 4000, 'rounded')
+        } else {
+          $.ajax({
+              url: url,
+              type: "POST",
+              dataType: "json",
+              data: $('#formNew').serialize(),
+              success: function(data) {
+                if(data.status == 1){
+                  Materialize.toast('Actividad&nbsp;<span class="yellow-text">registrada!<span>', 4000, 'rounded')
+                  activitys();
+                  $('#newActivity').hide();
+                  $('#name').val("");
+                  $('#intents').val("");
+                  $('#time').val("");
+                  $('#station_id').val($('#station_id > option:first').val());
+                  $('#question_id').val($('#question_id > option:first').val());
+                } else if(data.status == 2){
+                  Materialize.toast('Error del servidor!', 4000, 'rounded')
+                }
               }
-            }
-          })
-      }
-    }); */
+            })
+        }
+      });
 
-    function activitys () {
-      $.ajax({
-        url: 'activitys',
-        type: 'GET',
-        dataType: 'json',
-        data: '',
-        success: function(data) {
-          if (data.length) {
-            $('#listViewActivitys').empty();
-            for (var i = data.length - 1; i >= 0; i--) {
-              $('#listViewActivitys').append('<a href="javascript:void(0);" class="collection-item avatar" data-toggle="modal_activity" data-id="'+data[i].id+'"><i class="material-icons circle red left">group</i> Equipo <br> <b>'+data[i].name+'</b></a>');
+      function activitys () {
+        $.ajax({
+          url: 'activitys',
+          type: 'GET',
+          dataType: 'json',
+          data: '',
+          success: function(data) {
+            if (data.length) {
+              $('#listView').empty();
+              for (var i = data.length - 1; i >= 0; i--) {
+                $('#listView').append('<a href="javascript:void(0);" class="collection-item avatar waves-effect waves-orange" data-toggle="modal" data-id="'+data[i].id+'"><i class="material-icons circle orange left">directions_walk</i><b>'+data[i].name+'</b> <br>'+data[i].station+' <br> Pregunta #'+data[i].question_id+' </a>');
+              };
+            } else {
+              $('#new').show();
             };
-          } else {
-            //$('#listViewTeams').append('<h4>Sin grupos</h4>');
-            $('#newActivity').show();
-          };
-        }
-      });
-    }
+          }
+        });
+      }
 
-
-    function activity (id){
-      $.ajax({
-        url: 'activities/'+id,
-        type: 'GET',
-        dataType: 'json',
-        data: '',
-        success: function(data) {
-          $('#view_nameactivity').empty();
-          $('#view_nameactivity').html('Equipo <b>'+data.name+'</b> <p>Contraseña: '+data.password+'<p/>');
-        }
-      });
-    }
-
-
-  });
+      function activity (id){
+        $.ajax({
+          url: 'activity/'+id,
+          type: 'GET',
+          dataType: 'json',
+          data: '',
+          success: function(data) {
+            $('#view_name').empty();
+            $('#view_name').html('<b>'+data.name+'</b>');
+          }
+        });
+      }
+    });
   </script>
 {% endblock %}

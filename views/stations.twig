@@ -4,7 +4,7 @@
     .map {
       display: block;
       width: 100%;
-      height: 440px;
+      height: 460px;
     }
   </style>
 {% endblock %}
@@ -16,32 +16,23 @@
       <div class="col s4 m4 z-depth-0 white">
         <div class="box">
           <div class="collection">
-            <div id="listViewStations"></div>
+            <div id="listView"></div>
           </div>
         </div>
       </div>
       <div style="height: 557px;" class="col s8 m8 z-depth-0 indigo lighten-4">
         <br>
-        {#<div class="right">
-          <a id="btnAddStation" class="waves-effect waves-light btn">Nueva estación</a>
-        </div>
-        <br><br><br>#}
-        <div id="newStation">
+        <div id="new">
           <div class="row">
-            <div class="col offset-s1 s10 offset-m1 m10">
-              <div class="card">
-                <div class="card-content">
-                  <span class="card-title black-text"><div id="view_nameteam"></div></span>
-                  <div id="map" class="map"></div>
-                </div>
-                {#<div class="card-action">
-                  <a href="javascript:void(0);" id="closeNewStation" name="closeNewStation">Cerrar</a>
-                </div>#}
-              </div>
+            <div class="col offset-s1 s10 offset-m1 m10 z-depth-3 white">
+              <h5 class="header center">Clic en el mapa!</h5>
+              <div id="map" class="map"></div>
             </div>
           </div>
         </div>
-        <div id="viewStation">
+      </div>
+    </div>
+        {#<div id="viewStation">
           <div class="row">
             <div class="col offset-s1 s10 offset-m1 m10">
               <div class="card">
@@ -55,14 +46,12 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-   </div>
+        </div>#}
   </div>
 
-<div id="new" class="modal">
+  <div id="add" class="modal">
     <div class="modal-content">
-      <form id="formNewStation" action="{{ urlFor('new-station-post') }}">
+      <form id="formNew" action="{{ urlFor('new-station-post') }}">
       <h4 class="modal-title">Estación</h4>
         <div class="row">
           <div class="input-field col s10 offset-s1 m10 offset-m1">
@@ -75,25 +64,14 @@
     </form>
     </div>
     <div class="modal-footer">
-        <a id="btnCancelStation" href="javascript:void(0);" class="modal-action modal-close waves-effect btn red lighten-1">Cancelar</a>
-        <button id="btnNewStation" type="submit" class="modal-close waves-effect btn green lighten-1">Guardar</button>
+        <a id="btnCancel" href="javascript:void(0);" class="modal-action modal-close waves-effect btn red lighten-1">Cancelar</a>
+        <button id="btnNew" type="submit" class="modal-close waves-effect btn green lighten-1">Guardar</button>
     </div>
-</div>
-
+  </div>
 {% endblock %}
 {% block js %}
   <script>
     $(document).ready(function(){
-
-      //$('#newStation').hide();
-      $('#viewStation').hide();
-
-      $('#btnAddStation').click(function(event) {
-        $('#viewStation').hide();
-        $('#newStation').show();
-        //alert("Estación");
-      });
-
       stations();
 
       var map = new GMaps({
@@ -108,23 +86,8 @@
             //alert('Lat: '+lat+"Lng: "+lng);
             $('#lat').val(lat);
             $('#lng').val(lng);
-            $('#new').openModal();
+            $('#add').openModal();
           }
-      });
-
-      var map2 = new GMaps({
-          div: '#map2',
-          lat: -12.043333,
-          lng: -77.028333
-      });
-
-      map.addMarker({
-        lat: -12.043333,
-        lng: -77.028333,
-        title: 'Lima',
-        click: function(e) {
-          alert('You clicked in this marker');
-        }
       });
 
       GMaps.geolocate({
@@ -133,24 +96,24 @@
         }
       });
 
-     /* $(document).on('click', 'a[data-toggle="modal_station"]', function(event) {
+     /* $(document).on('click', 'a[data-toggle="modal"]', function(event) {
         $('#newStation').hide();
         $('#viewStation').show();
         var link = $(this);
         var id = link.data('id');
         team(id);
+      });
+
+      $('#closeView').click(function(event) {
+        $('#view').hide();
+      });
+
+      $('#closeNew').click(function(event) {
+        $('#new').hide();
       }); */
 
-      $('#closeViewStation').click(function(event) {
-        $('#viewStation').hide();
-      });
-
-      $('#closeNewStation').click(function(event) {
-        $('#newStation').hide();
-      });
-
-      $('#btnNewStation').click(function(event) {
-        var url = $('#formNewStation').attr('action');
+      $('#btnNew').click(function(event) {
+        var url = $('#formNew').attr('action');
         var name = $('#name').val();
         var lat = $('#lat').val();
         var lng = $('#lng').val();
@@ -161,7 +124,7 @@
               url: url,
               type: "POST",
               dataType: "json",
-              data: $('#formNewStation').serialize(),
+              data: $('#formNew').serialize(),
               success: function(data) {
                 if(data.status == 1){
                   Materialize.toast('Estación&nbsp;<span class="yellow-text">registrada!<span>', 4000, 'rounded')
@@ -183,13 +146,13 @@
           data: '',
           success: function(data) {
             if (data.length) {
-              $('#listViewStations').empty();
+              $('#listView').empty();
               for (var i = data.length - 1; i >= 0; i--) {
-                $('#listViewStations').append('<a href="javascript:void(0);" class="collection-item avatar" data-toggle="modal_station" data-id="'+data[i].id+'"><i class="material-icons circle red left">place</i> Estación <br> <b>'+data[i].name+'</b></a>');
+                $('#listView').append('<a href="javascript:void(0);" class="collection-item avatar waves-effect waves-red" data-toggle="modal_station" data-id="'+data[i].id+'"><i class="material-icons circle red left">place</i> Estación <br> <b>'+data[i].name+'</b></a>');
               };
             } else {
               //$('#listViewTeams').append('<h4>Sin grupos</h4>');
-              $('#newStation').show();
+              $('#new').show();
             };
           }
         });
@@ -202,8 +165,8 @@
           dataType: 'json',
           data: '',
           success: function(data) {
-            $('#view_namestation').empty();
-            $('#view_namestation').html('Equipo <b>'+data.name+'</b> <p>Contraseña: '+data.password+'<p/>');
+            $('#view_name').empty();
+            $('#view_name').html('<b>'+data.name+'</b>');
           }
         });
       }

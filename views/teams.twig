@@ -1,108 +1,104 @@
 {% extends 'base.twig' %}
-
 {% block content %}
-<div class="section no-pad-bot" id="index-banner">
-  <br><br>
-  <h4 class="header">Registro y gestión de equipos</h4>
-  <div class="row">
-   <div class="col s4 m4 z-depth-0 white">
-     <div class="box">
-       <div class="collection">
-        <div id="listViewTeams"></div>
-      </div>
-     </div>
-   </div>
-   <div style="height: 557px;" class="col s8 m8 z-depth-0 indigo lighten-4">
-      <br>
-      <div class="right">
-        <a id="btnAddTeam" class="waves-effect waves-light btn">Nuevo equipo</a>
-      </div>
-      <br><br><br>
-      <div id="newTeam">
-        <div class="row">
-          <div class="col offset-s1 s10 offset-m1 m10 z-depth-1 white">
-            <form action="{{ urlFor('new-team-post') }}" id="formNewTeam">
-              <br>
-              <div class="row">
-                <div class="input-field col s10 offset-s1 m10 offset-m1">
-                  <input id="name_team" name="name" type="text" class="validate">
-                  <label for="name">Nombre</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s10 offset-s1 m10 offset-m1">
-                  <input id="password_team" name="password" type="password" class="validate">
-                  <label for="password">Contraseña</label>
-                </div>
-              </div>
-              <br>
-              <div class="center">
-                <a id="btnCancelTeam" name="btnCancelTeam" class="waves-effect red lighten-1 btn">Cancelar</a>
-                <a id="btnNewTeam" name="btnNewTeam" class="waves-effect green lighten-1 btn">Aceptar</a>
-              </div>
-              <br>
-            </form>
+  <div class="section no-pad-bot" id="index-banner">
+    <br><br>
+    <h4 class="header">Registro y gestión de equipos</h4>
+    <div class="row">
+      <div class="col s4 m4 z-depth-0 white">
+        <div class="box">
+          <div class="collection">
+            <div id="listView"></div>
           </div>
         </div>
       </div>
-      <div id="viewTeam">
-         <div class="row">
-          <div class="col offset-s1 s10 offset-m1 m10">
-            <div class="card">
-              <div class="card-content">
-                <span class="card-title black-text"><div id="view_nameteam"></div></span>
-                <div class="collection">
-                  <a href="javascript:void(0);" class="collection-item">Alfredo Barrón Rodríguez</a>
-                  <a href="javascript:void(0);" class="collection-item">Alberto Guerrero Vazquez</a>
-                  <a href="javascript:void(0);" class="collection-item">Cruz Ulises Larraga Ramirez</a>
-                  <a href="javascript:void(0);" class="collection-item">Brenda Citlali Jonguitud Ramos</a>
+      <div style="height: 557px;" class="col s8 m8 z-depth-0 indigo lighten-4">
+        <br>
+        <div class="right">
+          <a id="btnAdd" class="waves-effect waves-light btn">Nuevo equipo</a>
+        </div>
+        <br><br><br>
+        <div id="new">
+          <div class="row">
+            <div class="col offset-s1 s10 offset-m1 m10 z-depth-1 white">
+              <form action="{{ urlFor('new-team-post') }}" id="formNew">
+                <br>
+                <div class="row">
+                  <div class="input-field col s10 offset-s1 m10 offset-m1">
+                    <input id="name" name="name" type="text" class="validate">
+                    <label for="name">Nombre</label>
+                  </div>
                 </div>
-              </div>
-              <div class="card-action">
-                <a href="javascript:void(0);" id="closeViewTeam" name="closeViewTeam">Cerrar</a>
+                <div class="row">
+                  <div class="input-field col s10 offset-s1 m10 offset-m1">
+                    <input id="password" name="password" type="password" class="validate">
+                    <label for="password">Contraseña</label>
+                  </div>
+                </div>
+                <br>
+                <div class="center">
+                  <a id="btnCancel" class="waves-effect red lighten-1 btn">Cancelar</a>
+                  <a id="btnNew" class="waves-effect green lighten-1 btn">Aceptar</a>
+                </div>
+                <br>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div id="view">
+          <div class="row">
+            <div class="col offset-s1 s10 offset-m1 m10">
+              <div class="card">
+                <div class="card-content">
+                  <span class="card-title black-text"><div id="view_name"></div></span>
+                  <div class="collection">
+                    <a href="javascript:void(0);" class="collection-item">Alfredo Barrón Rodríguez</a>
+                    <a href="javascript:void(0);" class="collection-item">Cruz Ulises Larraga Ramirez</a>
+                    <a href="javascript:void(0);" class="collection-item">Brenda Citlali Jonguitud Ramos</a>
+                  </div>
+                </div>
+                <div class="card-action">
+                  <a href="javascript:void(0);" id="cancelView">Cerrar</a>
+                </div>
               </div>
             </div>
           </div>
+        </div>
       </div>
     </div>
-   </div>
- </div>
-</div>
+  </div>
 {% endblock %}
 {% block js %}
   <script>
     $(document).ready(function() {
-
       teams();
+      $('#new').hide();
+      $('#view').hide();
 
-      $('#newTeam').hide();
-      $('#viewTeam').hide();
-
-      $('#btnCancelTeam').click(function(event) {
-        $('#newTeam').hide();
+      $('#btnCancel').click(function(event) {
+        $('#new').hide();
       });
 
-      $('#btnAddTeam').click(function(event) {
-        $('#viewTeam').hide();
-        $('#newTeam').show();
+      $('#btnAdd').click(function(event) {
+        $('#view').hide();
+        $('#new').show();
       });
 
-      $(document).on('click', 'a[data-toggle="modal_team"]', function(event) {
-        $('#newTeam').hide();
-        $('#viewTeam').show();
+      $(document).on('click', 'a[data-toggle="modal"]', function(event) {
+        $('#new').hide();
+        $('#view').show();
         var link = $(this);
         var id = link.data('id');
         team(id);
       });
 
-      $('#closeViewTeam').click(function(event) {
-        $('#viewTeam').hide();
+      $('#cancelView').click(function(event) {
+        $('#view').hide();
       });
 
-      $('#btnNewTeam').click(function(event) {
-        var url = $('#formNewTeam').attr('action');
-        var name = $('#name_team').val();
-        var password = $('#password_team').val();
+      $('#btnNew').click(function(event) {
+        var url = $('#formNew').attr('action');
+        var name = $('#name').val();
+        var password = $('#password').val();
         if ((name == "" && password == "") || (name == "" || password == "")) {
           Materialize.toast('Datos incompletos!', 4000, 'rounded')
         } else {
@@ -110,12 +106,14 @@
               url: url,
               type: "POST",
               dataType: "json",
-              data: $('#formNewTeam').serialize(),
+              data: $('#formNew').serialize(),
               success: function(data) {
                 if(data.status == 1){
                   Materialize.toast('Equipo&nbsp;<span class="yellow-text">registrado!<span>', 4000, 'rounded')
                   teams();
-                  $('#newTeam').hide();
+                  $('#name').val("");
+                  $('#password').val("");
+                  $('#new').hide();
                 } else if(data.status == 2){
                   Materialize.toast('Error del servidor!', 4000, 'rounded')
                 }
@@ -132,13 +130,12 @@
           data: '',
           success: function(data) {
             if (data.length) {
-              $('#listViewTeams').empty();
+              $('#listView').empty();
               for (var i = data.length - 1; i >= 0; i--) {
-                $('#listViewTeams').append('<a href="javascript:void(0);" class="collection-item avatar" data-toggle="modal_team" data-id="'+data[i].id+'"><i class="material-icons circle green left">group</i> Equipo <br> <b>'+data[i].name+'</b></a>');
+                $('#listView').append('<a href="javascript:void(0);" class="collection-item avatar waves-effect waves-green" data-toggle="modal" data-id="'+data[i].id+'"><i class="material-icons circle green left">group</i> Equipo <br> <b>'+data[i].name+'</b></a>');
               };
             } else {
-              //$('#listViewTeams').append('<h4>Sin grupos</h4>');
-              $('#newTeam').show();
+              $('#new').show();
             };
           }
         });
@@ -151,8 +148,8 @@
           dataType: 'json',
           data: '',
           success: function(data) {
-            $('#view_nameteam').empty();
-            $('#view_nameteam').html('Equipo <b>'+data.name+'</b> <p>Contraseña: '+data.password+'<p/>');
+            $('#view_name').empty();
+            $('#view_name').html('Equipo <b>'+data.name+'</b> <p>Contraseña: '+data.password+'<p/>');
           }
         });
       }

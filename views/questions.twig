@@ -1,5 +1,4 @@
 {% extends 'base.twig' %}
-
 {% block content %}
   <div class="section no-pad-bot" id="index-banner">
     <br><br>
@@ -8,229 +7,144 @@
       <div style="height: 557px;" class="col s12 m12 z-depth-0 indigo lighten-4">
         <br>
         <div class="right">
-          <a id="btnAddQuestion" name="btnAddTeam" class="waves-effect waves-light btn">Nueva pregunta/acertijo</a>
+          <a id="btnAdd" class="waves-effect waves-light btn">Nueva pregunta/acertijo</a>
         </div>
         <br><br><br>
-        <!--<div id="newTeam">
-          <div class="row">
-            <div class="col offset-s1 s10 offset-m1 m10 z-depth-1 white">
-              <form action="{{ urlFor('new-team-post') }}" id="formNewTeam">
-                <br>
-                <div class="row">
-                  <div class="input-field col s10 offset-s1 m10 offset-m1">
-                    <input id="name_team" name="name" type="text" class="validate">
-                    <label for="name">Nombre</label>
+        <table class="hoverable white">
+          <thead>
+            <th class="col m1 text-center">#</th>
+            <th class="col m5 text-center">Pregunta</th>
+            <th class="col m2 text-center">Respuesta</th>
+            <th class="col m2 text-center">Pista</th>
+            {#<th class="col m2 text-center">Opciones</th>#}
+          </thead>
+        </table>
+        <div class="table-box white">
+          <table class="hoverable white">
+            <tbody>
+             {% for qu in questions %}
+              <tr>
+                <td class="col m1 text-center">{{ qu.id }}</td>
+                <td class="col m5 text-center">{{ qu.message }}</td>
+                <td class="col m2 text-center">{{ qu.answer }}</td>
+                <td class="col m2 text-center">{{ qu.track }}</td>
+                {#<td class="col m2 text-center">
+                  <div class="btn-group" role="group">
+                    <button class="btn-floating blue" title="Editar" data-toggle="modal" data-target="#new" data-id="{{ qu.id }}" data-name="{{ qu.name }}" data-descr="{{ qu.descr }}" data-icon="{{ qu.icon }}"><i class="material-icons">create</i></button>
+                    <button class="btn-floating red" title="Eliminar" data-toggle="modal" data-target="#delete" data-id="{{ qu.id }}" data-name="{{ qu.name }}"><i class="material-icons">delete</i></button>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="input-field col s10 offset-s1 m10 offset-m1">
-                    <input id="password_team" name="password" type="password" class="validate">
-                    <label for="password">Contraseña</label>
-                  </div>
-                </div>
-                <br>
-                <div class="center">
-                  <a id="btnCancelTeam" name="btnCancelTeam" class="waves-effect red lighten-1 btn">Cancelar</a>
-                  <a id="btnNewTeam" name="btnNewTeam" class="waves-effect green lighten-1 btn">Aceptar</a>
-                </div>
-                <br>
-              </form>
-            </div>
-          </div>
-        </div>-->
-        <!--<div id="viewTeam">
-           <div class="row">
-            <div class="col offset-s1 s10 offset-m1 m10">
-              <div class="card">
-                <div class="card-content">
-                  <span class="card-title black-text"><div id="view_nameteam"></div></span>-->
-                  <!--<div class="collection">
-                    <a href="javascript:void(0);" class="collection-item">Alfredo Barrón Rodríguez</a>
-                    <a href="javascript:void(0);" class="collection-item">Alberto Guerrero Vazquez</a>
-                    <a href="javascript:void(0);" class="collection-item">Cruz Ulises Larraga Ramirez</a>
-                    <a href="javascript:void(0);" class="collection-item">Brenda Citlali Jonguitud Ramos</a>
-                  </div>-->
-                <!--</div>
-                <div class="card-action">
-                  <a href="javascript:void(0);" id="closeViewTeam" name="closeViewTeam">Cerrar</a>
-                </div>
-              </div>
-            </div>-->
-          <div id="listQuestions">
-            <table class="hoverable white">
-              <thead>
-                <th class="col m1 text-center">#</th>
-                <th class="col m5 text-center">Pregunta</th>
-                <th class="col m2 text-center">Respuesta</th>
-                <th class="col m2 text-center">Pista</th>
-                {#<th class="col m2 text-center">Opciones</th>#}
-              </thead>
-            </table>
-            <div class="table-box white">
-              <table class="hoverable white">
-                <tbody>
-                 {% for qu in questions %}
-                  <tr>
-                    <td class="col m1 text-center">{{ qu.id }}</td>
-                    <td class="col m5 text-center">{{ qu.message }}</td>
-                    <td class="col m2 text-center">{{ qu.answer }}</td>
-                    <td class="col m2 text-center">{{ qu.track }}</td>
-                    {#<td class="col m2 text-center">
-                      <div class="btn-group" role="group">
-                        <button class="btn-floating blue" title="Editar" data-toggle="modal" data-target="#new" data-id="{{ qu.id }}" data-name="{{ qu.name }}" data-descr="{{ qu.descr }}" data-icon="{{ qu.icon }}"><i class="material-icons">create</i></button>
-                        <button class="btn-floating red" title="Eliminar" data-toggle="modal" data-target="#delete" data-id="{{ qu.id }}" data-name="{{ qu.name }}"><i class="material-icons">delete</i></button>
-                      </div>
-                    </td>#}
-                  </tr>
-                {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          </div>
+                </td>#}
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
- </div>
-<div id="newQuestion" class="modal modal-fixed-footer white z-depth-1">
-  <div class="modal-content">
-    <form id="formNewQuestion" action="{{ urlFor('new-question-post') }}">
-      <h4 class="modal-title">Pregunta o Acertijo</h4>
-        <div class="row">
-          <div class="input-field col offset-s1 s10 offset-m1 m10">
-            <textarea id="message" name="message" class="materialize-textarea"></textarea>
-            <label for="message">Pregunta o acertijo</label>
+    <div id="new" class="modal modal-fixed-footer white z-depth-1">
+      <div class="modal-content">
+        <form id="formNew" action="{{ urlFor('new-question-post') }}">
+          <h4 class="modal-title">Pregunta o Acertijo</h4>
+          <div class="row">
+            <div class="input-field col offset-s1 s10 offset-m1 m10">
+              <textarea id="message" name="message" class="materialize-textarea"></textarea>
+              <label for="message">Pregunta o acertijo</label>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s10 offset-s1 m10 offset-m1">
-            <input id="answer" name="answer" type="text" class="validate">
-            <label for="answer">Respuesta</label>
+          <div class="row">
+            <div class="input-field col s10 offset-s1 m10 offset-m1">
+              <input id="answer" name="answer" type="text" class="validate">
+              <label for="answer">Respuesta</label>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s10 offset-s1 m10 offset-m1">
-            <input id="track" name="track" type="text" class="validate">
-            <label for="track">Pista</label>
+          <div class="row">
+            <div class="input-field col s10 offset-s1 m10 offset-m1">
+              <input id="track" name="track" type="text" class="validate">
+              <label for="track">Pista</label>
+            </div>
           </div>
-        </div>
-        {{ f.hide('id', 0) }}
-    </form>
+          {{ f.hide('id', 0) }}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a id="btnCancel" href="javascript:void(0);" class="modal-action modal-close waves-effect btn red lighten-1">Cancelar</a>
+        <button type="submit" id="btnNew" href="javascript:void(0);" class="waves-effect btn green lighten-1">Guardar</button>
+      </div>
+    </div>
   </div>
-  <div class="modal-footer">
-    <a id="btnDeleteQuestion" href="javascript:void(0);" class="modal-action modal-close waves-effect btn red lighten-1">Cancelar</a>
-    <a id="btnNewQuestion" href="javascript:void(0);" class="waves-effect btn green lighten-1">Guardar</a>
-  </div>
-</div>
-</div>
 {% endblock %}
 {% block js %}
-<script>
-  $(document).ready(function() {
+    <script>
+      $(document).ready(function() {
 
-    questions();
+        questions();
 
-    $('#btnAddQuestion').click(function(event) {
-      $('#newQuestion').openModal();
-    });
+        $('#btnAdd').click(function(event) {
+          $('#new').openModal();
+        });
 
-    $('#btnNewQuestion').click(function(event) {
-      var url = $('#formNewQuestion').attr('action');
-      var message = $('#message').val();
-      var answer = $('#answer').val();
-      var track = $('#track').val();
-      if ((message == "" && answer == "" && track == "") || (message == "" || answer == "" || track == "")) {
-        Materialize.toast('Datos incompletos!', 4000, 'rounded')
-      } else {
-        $.ajax({
-            url: url,
-            type: "POST",
-            dataType: "json",
-            data: $('#formNewQuestion').serialize(),
-            success: function(data) {
-              if(data.status == 1){
-                Materialize.toast('Pregunta y/o acertijo&nbsp;<span class="yellow-text">registrado!<span>', 4000, 'rounded')
-                competitors();
-                $('#message').val("");
-                $('#answer').val("");
-                $('#track').val("");
-              } else if(data.status == 2){
-                Materialize.toast('Error del servidor!', 4000, 'rounded')
-              }
-            }
-          })
-      }
-    });
-
-    $('#btnAddQuestion').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget);
-      var id = button.data('id');
-      var name = button.data('name');
-      var descr = button.data('descr');
-      var icon = button.data('icon');
-      var modal = $(this);
-      $('.form-group').each(function(index, el) {
-        $(this).removeClass('has-error');
-      });
-      $('.help-block').each(function(index, el) {
-        $(this).html('');
-      });
-      if(typeof name != 'undefined'){
-        modal.find('.modal-title').text('Actualizar tipo incidente');
-        modal.find('#id').val(id);
-        modal.find('#name').val(name);
-        modal.find('#descr').val(descr);
-        modal.find('#icon').val(icon);
-        modal.find('#update').val('true');
-      } else {
-        modal.find('.modal-title').text('Nuevo tipo incidente');
-        modal.find('#id').val('0');
-        modal.find('#name').val('');
-        modal.find('#descr').val('');
-        modal.find('#icon').val('');
-        modal.find('#update').val('false');
-      }
-    });
-
-    $('#btnDeleteQuestion').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget);
-      var id = button.data('id');
-      var name = button.data('name');
-      var modal = $(this);
-      modal.find('b#tipo').text(name);
-      modal.find('a#delete-button').attr('href',''+id);
-    });
-
-    function questions () {
-      $.ajax({
-        url: 'questions',
-        type: 'GET',
-        dataType: 'json',
-        data: '',
-        success: function(data) {
-          if (data.length) {
-            $('#listViewQuestions').empty();
-            for (var i = data.length - 1; i >= 0; i--) {
-              $('#listViewQuestions').append('<a href="javascript:void(0);" class="collection-item avatar" data-toggle="modal_question" data-id="'+data[i].id+'"><i class="material-icons circle red left">group</i> Equipo <br> <b>'+data[i].name+'</b></a>');
-            };
+        $('#btnNew').click(function(event) {
+          var url = $('#formNew').attr('action');
+          var message = $('#message').val();
+          var answer = $('#answer').val();
+          var track = $('#track').val();
+          if ((message == "" && answer == "" && track == "") || (message == "" || answer == "" || track == "")) {
+            Materialize.toast('Datos incompletos!', 4000, 'rounded')
           } else {
-            //$('#listViewTeams').append('<h4>Sin grupos</h4>');
-            $('#newQuestion').show();
-          };
-        }
-      });
-    }
+            $.ajax({
+                url: url,
+                type: "POST",
+                dataType: "json",
+                data: $('#formNew').serialize(),
+                success: function(data) {
+                  if(data.status == 1){
+                    Materialize.toast('Pregunta y/o acertijo&nbsp;<span class="yellow-text">registrado!<span>', 4000, 'rounded')
+                    competitors();
+                    $('#message').val("");
+                    $('#answer').val("");
+                    $('#track').val("");
+                    location.reload();
+                  } else if(data.status == 2){
+                    Materialize.toast('Error del servidor!', 4000, 'rounded')
+                  }
+                }
+              })
+          }
+        });
 
-    function question (id){
-      $.ajax({
-        url: 'question/'+id,
-        type: 'GET',
-        dataType: 'json',
-        data: '',
-        success: function(data) {
-          $('#view_namequestion').empty();
-          $('#view_namequestion').html('Equipo <b>'+data.name+'</b> <p>Contraseña: '+data.password+'<p/>');
+        function questions () {
+          $.ajax({
+            url: 'questions',
+            type: 'GET',
+            dataType: 'json',
+            data: '',
+            success: function(data) {
+              if (data.length) {
+                $('#listViewQuestions').empty();
+                for (var i = data.length - 1; i >= 0; i--) {
+                  $('#listViewQuestions').append('<a href="javascript:void(0);" class="collection-item avatar" data-toggle="modal_question" data-id="'+data[i].id+'"><i class="material-icons circle red left">group</i> Equipo <br> <b>'+data[i].name+'</b></a>');
+                };
+              } else {
+                //$('#listViewTeams').append('<h4>Sin grupos</h4>');
+                //$('#new').show();
+              };
+            }
+          });
         }
-      });
-    }
 
-  });
+        function question (id){
+          $.ajax({
+            url: 'question/'+id,
+            type: 'GET',
+            dataType: 'json',
+            data: '',
+            success: function(data) {
+              $('#view_name').empty();
+              $('#view_name').html('<b>'+data.name+'</b> <p>Contraseña: '+data.password+'<p/>');
+            }
+          });
+        }
+
+      });
 </script>
 {% endblock %}
