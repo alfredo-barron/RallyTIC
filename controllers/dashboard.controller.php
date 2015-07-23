@@ -13,7 +13,7 @@ $app->get('/eventos', $auth($app), function () use ($app){
   $t = new Team();
   $user = $_SESSION['user'];
   $app->view()->setData('user', $user);
-  $data['events'] = $e->events();
+  $data['events'] = $e->list_events();
   $data['activities'] = $a->list_activities();
   $data['teams'] = $t->teams();
   return $app->render('events.twig',$data);
