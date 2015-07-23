@@ -166,7 +166,7 @@ $app->get("/evento", function () use ($app){
   $data['activities'] = $a;
   //print json_encode($e);
   print json_encode($data);
-})->name('event');
+})->name('evento');
 
 $app->get("/competitors", function () use ($app){
   $u = new User();
