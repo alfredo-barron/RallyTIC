@@ -8,9 +8,15 @@ $app->get('/inicio', $auth($app), function () use ($app){
 })->name('dashboard');
 
 $app->get('/eventos', $auth($app), function () use ($app){
+  $e = new Event();
+  $a = new Activity();
+  $t = new Team();
   $user = $_SESSION['user'];
   $app->view()->setData('user', $user);
-  return $app->render('events.twig');
+  $data['events'] = $e->events();
+  $data['activities'] = $a->list_activities();
+  $data['teams'] = $t->teams();
+  return $app->render('events.twig',$data);
 })->name('event');
 
 $app->get('/actividades', $auth($app), function () use ($app){
@@ -63,6 +69,48 @@ $app->get('/puntuajes', $auth($app), function () use ($app){
 })->name('score');
 
 //Acciones
+$app->post("/new-event", function () use ($app){
+  $e = new Event();
+  $e = $e->save($app->request->post());
+  if (isset($e->id)) {
+    print json_encode(array(
+          "status" => 1
+          ));
+  } else {
+    print json_encode(array(
+          "status" => 2
+          ));
+  }
+})->name('new-event-post');
+
+$app->post("/add-activity", function () use ($app){
+  $e = new Event();
+  $e = $e->save_activity($app->request->post());
+  if (isset($e->id)) {
+    print json_encode(array(
+          "status" => 1
+          ));
+  } else {
+    print json_encode(array(
+          "status" => 2
+          ));
+  }
+})->name('add-activity-post');
+
+$app->post("/add-team", function () use ($app){
+  $e = new Event();
+  $e = $e->save_team($app->request->post());
+  if (isset($e->id)) {
+    print json_encode(array(
+          "status" => 1
+          ));
+  } else {
+    print json_encode(array(
+          "status" => 2
+          ));
+  }
+})->name('add-team-post');
+
 $app->post("/new-activity", function () use ($app){
   $a = new Activity();
   $a = $a->save($app->request->post());
@@ -104,6 +152,21 @@ $app->post("/new-question", function () use ($app){
           ));
   }
 })->name('new-question-post');
+
+$app->get("/events", function () use ($app){
+  $e = new Event();
+  $e = $e->list_events();
+  print json_encode($e);
+})->name('get-events');
+
+$app->get("/evento", function () use ($app){
+  $e = new Event();
+  $a = $e->events();
+  $data['event'] = $e->event(1);
+  $data['activities'] = $a;
+  //print json_encode($e);
+  print json_encode($data);
+})->name('event');
 
 $app->get("/competitors", function () use ($app){
   $u = new User();

@@ -17,7 +17,7 @@
           <div class="col s4 m4 z-depth-0 white">
            <div class="box">
              <ul class="collection">
-              <li class="collection-item avatar"><i class="material-icons circle blue left">flag</i>Evento <br> <a href="#!"><b>Esferas del dragón</b></a><a href="#!" data-position="bottom" data-delay="50" data-tooltip="Estadística" class="tooltipped secondary-content"><i class="material-icons">equalizer</i></a></li>
+              <div id="listView"></div>
             </ul>
            </div>
          </div>
@@ -51,6 +51,27 @@
           map.setCenter(position.coords.latitude, position.coords.longitude);
         }
       });
+
+     events();
+
+     function events () {
+        $.ajax({
+          url: 'events',
+          type: 'GET',
+          dataType: 'json',
+          data: '',
+          success: function(data) {
+            if (data.length) {
+              $('#listView').empty();
+              for (var i = data.length - 1; i >= 0; i--) {
+                $('#listView').append('<li class="collection-item avatar"><i class="material-icons circle blue left">flag</i>Evento <br> <a href="#!" data-toggle="modal" data-id="'+data[i].id+'"><b>'+data[i].name+'</b></a><a href="#!" data-position="bottom" data-delay="50" data-tooltip="Estadística" class="tooltipped secondary-content"><i class="material-icons">equalizer</i></a></li>');
+              };
+            } else {
+              $('#new').show();
+            };
+          }
+        });
+      }
 
  });
  </script>

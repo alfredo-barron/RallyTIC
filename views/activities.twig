@@ -79,6 +79,11 @@
               <div class="card">
                 <div class="card-content">
                   <span class="card-title black-text"><div id="view_name"></div></span>
+                  <p><span id="view_question"></span></p>
+                  <p><span id="view_answer"></span></p>
+                  <p><span id="view_time"></span></p>
+                  <p><span id="view_intents"></span></p>
+                  <p><span id="view_station"></span></p>
                 </div>
                 <div class="card-action">
                   <a href="javascript:void(0);" id="cancelView">Cerrar</a>
@@ -180,6 +185,11 @@
           success: function(data) {
             $('#view_name').empty();
             $('#view_name').html('<b>'+data.name+'</b>');
+            $('#view_question').html('Pregunta/Acertijo: <b>'+data.question+'</b>');
+            $('#view_answer').html('Clave: <b>'+data.answer+'</b>');
+            $('#view_time').html('Tiempo: <b>'+data.time+' minutos</b>');
+            $('#view_intents').html('Intentos: <b>'+data.intents+'</b>');
+            $('#view_station').html('Lugar: <b>'+data.station+'</b>');
           }
         });
       }

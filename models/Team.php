@@ -39,7 +39,7 @@ class Team {
   }
 
   public function teams() {
-    $st = $this->db->prepare("SELECT id,name FROM teams ORDER BY name DESC");
+    $st = $this->db->prepare("SELECT id,name FROM teams ORDER BY name ASC");
     $st->setFetchMode(PDO::FETCH_OBJ);
     $st->execute();
     return $st->fetchAll();

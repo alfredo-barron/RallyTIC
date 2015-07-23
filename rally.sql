@@ -80,10 +80,6 @@ create table activity_event(
   id serial primary key,
   event_id int not null,
   activity_id int not null,
-  team_id int not null,
-  order_activity int, --Puede cambiar para cada equipo 1,2,3,4,5,6
-  start_activity boolean default false, --Siempre seran las mismas
-  end_activity boolean default false, --Siempre seran las mismas
   created_at timestamp not null default now(),
   updated_at timestamp not null default now()
 );
@@ -93,10 +89,9 @@ create table event_team(
   event_id int not null,
   team_id int not null,
   created_at timestamp not null default now(),
-  updated_at timestamp not null default now(),
-  foreign key (event_id) references events(id),
-  foreign key (team_id) references teams(id)
+  updated_at timestamp not null default now()
 );
+
 --Pendiente
 create table bitacora(
   id serial primary key,

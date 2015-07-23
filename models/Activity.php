@@ -32,6 +32,13 @@ class Activity {
     return $st->fetch();
   }
 
+  public function list_activities() {
+    $st = $this->db->prepare("SELECT * FROM activities ORDER BY name ASC");
+    $st->setFetchMode(PDO::FETCH_OBJ);
+    $st->execute();
+    return $st->fetchAll();
+  }
+
   public function activities() {
     $st = $this->db->prepare("SELECT activities.id AS id, activities.name as name, activities.time AS time, activities.intents AS intents, stations.name AS station, stations.lat AS lat, stations.lng AS lng, questions.id AS question_id, questions.message AS question, questions.answer AS answer, questions.track AS track, activities.penalty AS penalty FROM activities,stations,questions WHERE activities.station_id = stations.id AND activities.question_id = questions.id ORDER BY activities.name DESC");
     $st->setFetchMode(PDO::FETCH_OBJ);
