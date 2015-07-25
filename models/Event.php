@@ -43,10 +43,10 @@ class Event {
     return $st->fetch();
   }
 
-  public function events() {
-    $st = $this->db->prepare("SELECT activities.id AS id, activities.name as name, activities.time AS time, activities.intents AS intents, stations.name AS station, stations.lat AS lat, stations.lng AS lng, questions.id AS question_id, questions.message AS question, questions.answer AS answer, questions.track AS track, activities.penalty AS penalty FROM events,activity_event,activities,questions,stations,event_team,teams WHERE activity_event.event_id = events.id AND activity_event.activity_id = activities.id AND activities.question_id = questions.id AND activities.station_id = stations.id AND event_team.event_id = events.id AND event_team.team_id = teams.id AND events.id = 1 AND teams.id = 1 ORDER BY activity_event.created_at ASC");
+  public function events($id) {
+    $st = $this->db->prepare("SELECT activities.id AS id, activities.name as name, activities.time AS time, activities.intents AS intents, stations.name AS station, stations.lat AS lat, stations.lng AS lng, questions.id AS question_id, questions.message AS question, questions.answer AS answer, questions.track AS track, activities.penalty AS penalty FROM events,activity_event,activities,questions,stations,event_team,teams WHERE activity_event.event_id = events.id AND activity_event.activity_id = activities.id AND activities.question_id = questions.id AND activities.station_id = stations.id AND event_team.event_id = events.id AND event_team.team_id = teams.id AND events.id = 1 AND teams.id = ? ORDER BY activity_event.created_at ASC");
     $st->setFetchMode(PDO::FETCH_OBJ);
-    $st->execute();
+    $st->execute(array($id));
     return $st->fetchAll();
   }
 

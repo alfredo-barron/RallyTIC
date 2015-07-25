@@ -161,7 +161,8 @@ $app->get("/events", function () use ($app){
 
 $app->get("/evento", function () use ($app){
   $e = new Event();
-  $a = $e->events();
+  $a = $e->events($_GET['id']);
+  $data['status'] = 200;
   $data['event'] = $e->event(1);
   $data['activities'] = $a;
   //print json_encode($e);
