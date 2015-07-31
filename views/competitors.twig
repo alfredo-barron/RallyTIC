@@ -8,7 +8,7 @@
    <div class="col s4 m4 z-depth-0 white">
      <div class="box">
        <div class="collection">
-        <div id="listViewCompetitors"></div>
+        <div id="listView"></div>
       </div>
      </div>
    </div>
@@ -70,6 +70,7 @@
  $(document).ready(function() {
 
     competitors();
+    teams();
 
     $('#newCompetitor').hide();
 
@@ -122,6 +123,38 @@
               //$('#listViewCompetitors').append('<h4>Sin participantes</h4>');
               $('#newCompetitor').show();
             };
+          }
+        });
+      }
+
+      function teams () {
+        $.ajax({
+          url: 'teams',
+          type: 'GET',
+          dataType: 'json',
+          data: '',
+          success: function(data) {
+            if (data.length) {
+              $('#listView').empty();
+              for (var i = data.length - 1; i >= 0; i--) {
+                $('#listView').append('<a href="javascript:void(0);" class="collection-item avatar waves-effect waves-green" data-toggle="modal" data-id="'+data[i].id+'"><i class="material-icons circle green left">group</i> Equipo <br> <b>'+data[i].name+'</b></a>');
+              };
+            } else {
+              $('#new').show();
+            };
+          }
+        });
+      }
+
+      function team (id){
+        $.ajax({
+          url: 'team/'+id,
+          type: 'GET',
+          dataType: 'json',
+          data: '',
+          success: function(data) {
+            $('#view_name').empty();
+            $('#view_name').html('Equipo <b>'+data.name+'</b> <p>Contraseña: '+data.password+'<p/>');
           }
         });
       }

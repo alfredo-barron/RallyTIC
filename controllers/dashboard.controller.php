@@ -60,10 +60,10 @@ $app->get('/preguntas', $auth($app), function () use ($app){
 })->name('question');
 
 # Se requiere sesión iniciada del participantes
-$app->get('/inicio', $auth($app), function () use ($app){
+$app->get('/rallys', $auth($app), function () use ($app){
   $user = $_SESSION['user'];
   $app->view()->setData('user', $user);
-  return $app->render('index.twig');
+  return $app->render('index.competitor.twig');
 })->name('events');
 
 $app->get('/equipos', $auth($app), function () use ($app){
@@ -71,12 +71,6 @@ $app->get('/equipos', $auth($app), function () use ($app){
   $app->view()->setData('user', $user);
   return $app->render('competitors.twig');
 })->name('competitor_team');
-
-$app->get('/puntuajes', $auth($app), function () use ($app){
-  $user = $_SESSION['user'];
-  $app->view()->setData('user', $user);
-  return $app->render('index.twig');
-})->name('score');
 
 //Acciones
 $app->post("/new-event", function () use ($app){
