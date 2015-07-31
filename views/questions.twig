@@ -28,12 +28,6 @@
                 <td class="col m5 text-center">{{ qu.message }}</td>
                 <td class="col m2 text-center">{{ qu.answer }}</td>
                 <td class="col m2 text-center">{{ qu.track }}</td>
-                {#<td class="col m2 text-center">
-                  <div class="btn-group" role="group">
-                    <button class="btn-floating blue" title="Editar" data-toggle="modal" data-target="#new" data-id="{{ qu.id }}" data-name="{{ qu.name }}" data-descr="{{ qu.descr }}" data-icon="{{ qu.icon }}"><i class="material-icons">create</i></button>
-                    <button class="btn-floating red" title="Eliminar" data-toggle="modal" data-target="#delete" data-id="{{ qu.id }}" data-name="{{ qu.name }}"><i class="material-icons">delete</i></button>
-                  </div>
-                </td>#}
               </tr>
             {% endfor %}
             </tbody>
@@ -125,8 +119,7 @@
                   $('#listViewQuestions').append('<a href="javascript:void(0);" class="collection-item avatar" data-toggle="modal_question" data-id="'+data[i].id+'"><i class="material-icons circle red left">group</i> Equipo <br> <b>'+data[i].name+'</b></a>');
                 };
               } else {
-                //$('#listViewTeams').append('<h4>Sin grupos</h4>');
-                //$('#new').show();
+
               };
             }
           });

@@ -1,0 +1,15 @@
+{% extends 'base-error.twig' %}
+
+{% block content %}
+<br><br><br><br><br><br>
+<div class="row">
+  <div class="col s10 m10 offset-m1 offser-s1 panel panel-default text-center">
+  <h2>404 Página No Encontrada</h2>
+  <div>
+    <p>Es posible que la página que buscas no este disponible o no exista, intente más tarde o contacte a su administrador.</p>
+    <a href="{{ urlFor('home') }}" class="btn btn-primary btn-outline"><i class="fa fa-home"></i> Inicio</a>
+  </div>
+</div>
+</div>
+<br><br><br><br><br><br>
+{% endblock %}

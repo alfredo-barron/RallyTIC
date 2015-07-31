@@ -1,0 +1,15 @@
+{% extends 'base-error.twig' %}
+
+{% block content %}
+<br><br><br><br><br><br>
+<div class="row">
+  <div class="col m10 s10 offset-s1 offset-m1 panel panel-default text-center">
+  <h2>500 Ha sucedido un error inesperado</h2>
+  <div>
+    <p>Es posible que no exista conexión a la base de datos o que haya un error de código, intente más tarde o contacte a su administrador.</p>
+    <a href="{{ urlFor('home') }}" class="btn btn-danger btn-outline"><i class="fa fa-home"></i> Inicio</a>
+  </div>
+</div>
+</div>
+<br><br><br><br><br><br>
+{% endblock %}

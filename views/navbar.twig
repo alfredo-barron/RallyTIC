@@ -12,14 +12,11 @@
     </ul>
     <ul id="nav-mobile" class="side-nav">
       {% if user.id is defined %}
+        <li><a href="javascript:void(0);">{{ user.username }}</a></li>
         <li><a href="{{ urlFor('logout') }}">Salir</a></li>
       {% else %}
       <li><a href="javascript:void(0);" class="about"><i class="material-icons left">more_vert</i>Acerca de</a></li>
       {% endif %}
-      <!--<li><a href="#!"><i class="material-icons left">person_add</i>Registrate</a></li>-->
-      <!--<li><a href="#"><i class="material-icons left">assistant_photo</i>Eventos</a></li>
-      <li><a href="#">Actividades</a></li>
-      <li><a href="#">Participantes</a></li>-->
     </ul>
   </div>
   {% if user.id is defined %}

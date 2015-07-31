@@ -75,12 +75,10 @@ $app->configureMode('development', function () use ($app) {
 });
 
 $app->notFound(function () use ($app) {
-  //$app->render('errors/404.twig');
-  echo "404";
+  $app->render('errors/404.twig');
 });
 $app->error(function (\Exception $e) use ($app) {
-  //$app->render('errors/500.twig');
-  echo "500";
+  $app->render('errors/500.twig');
 });
 
 $app->session = $_SESSION;
@@ -129,34 +127,7 @@ $twig->addFunction(new Twig_SimpleFunction('asset', function ($asset) use($app) 
     }
     return sprintf("$dir/%s", ltrim($asset, '/'));
 }));
-$twig->addFunction(new Twig_SimpleFunction('active', function ($name) use ($app) {
-  $url = $app->urlFor($name);
-  $root = $app->request->getRootUri();
-  $url = str_replace($root, '', $url);
-  //$parts = explode("/",$app->request()->getPathInfo(),-1);
-  if ($url === $app->request->getResourceUri()) {
-    if (isset($app->active_link_snippet)) {
-      return $app->active_link_snippet;
-    } else {
-      return ' class="active"';
-    }
-  }
-  return '';
-  },
-  array(
-    'is_safe' => array('html')
-  )
-));
 
-$twig->addExtension(new Twig_Extension_Debug());
-$twig->addFilter(new Twig_SimpleFilter('filesize', function ($fs, $digits = 2) use($app){
-  $sizes = array("TB", "GB", "MB", "KB", "B");
-  $total = count($sizes);
-  while ($total-- && $fs > 1024) {
-    $fs /= 1024;
-  }
-  return round($fs, $digits) . " " . $sizes[$total];
-}));
 
 $db = null;
 try {

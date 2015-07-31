@@ -32,23 +32,7 @@
         </div>
       </div>
     </div>
-        {#<div id="viewStation">
-          <div class="row">
-            <div class="col offset-s1 s10 offset-m1 m10">
-              <div class="card">
-                <div class="card-content">
-                  <span class="card-title black-text"><div id="view_nameteam"></div></span>
-                  <div id="map2" class="map"></div>
-                </div>
-                <div class="card-action">
-                  <a href="javascript:void(0);" id="closeViewStation" name="closeViewStation">Cerrar</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>#}
   </div>
-
   <div id="add" class="modal">
     <div class="modal-content">
       <form id="formNew" action="{{ urlFor('new-station-post') }}">
@@ -96,22 +80,6 @@
         }
       });
 
-     /* $(document).on('click', 'a[data-toggle="modal"]', function(event) {
-        $('#newStation').hide();
-        $('#viewStation').show();
-        var link = $(this);
-        var id = link.data('id');
-        team(id);
-      });
-
-      $('#closeView').click(function(event) {
-        $('#view').hide();
-      });
-
-      $('#closeNew').click(function(event) {
-        $('#new').hide();
-      }); */
-
       $('#btnNew').click(function(event) {
         var url = $('#formNew').attr('action');
         var name = $('#name').val();
@@ -151,7 +119,6 @@
                 $('#listView').append('<a href="javascript:void(0);" class="collection-item avatar waves-effect waves-red" data-toggle="modal_station" data-id="'+data[i].id+'"><i class="material-icons circle red left">place</i> Estación <br> <b>'+data[i].name+'</b></a>');
               };
             } else {
-              //$('#listViewTeams').append('<h4>Sin grupos</h4>');
               $('#new').show();
             };
           }

@@ -47,21 +47,12 @@
       });
     {% endfor %}
 
-    /*
-    for (var i = 0; i < activities.length; i++) {
-      path.push(activities[i].lat, activities[i].lng);
-      data.push(path);
-    };
-
-    console.log(data); */
-
     map.drawPolyline({
       path: path,
       strokeColor: '#131540',
       strokeOpacity: 0.6,
       strokeWeight: 6
     });
-
 
  });
  </script>
