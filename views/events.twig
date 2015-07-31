@@ -106,7 +106,7 @@
                 <div class="col s10 offset-s1 m10 offset-m1">
                   <label>Eventos disponibles</label>
                   <select id="event_id_tea" name="event_id" class="browser-default">
-                    <option value="" selected>Selecciona una opcion ...</option>
+                    <option value="0" selected>Selecciona una opcion ...</option>
                     {% for ev in events %}
                       <option value="{{ ev.id }}">{{ ev.name }}</option>
                     {% endfor %}
@@ -128,6 +128,13 @@
                 <a id="btnAddTeam" class="waves-effect green lighten-1 btn">Agregar</a>
               </div>
             </div>
+            <div class="row">
+                  <div class="col s8 m8 offset-s2 offset-m2">
+                    <div class="collection">
+                      <div id="listViewTeam"></div>
+                    </div>
+                  </div>
+                </div>
            </form>
           <br><br>
           </div>
@@ -144,15 +151,22 @@
                   <br>
                   <div class="col s10 offset-s1 m10 offset-m1">
                     <label>Eventos disponibles</label>
-                    <select id="event_id" name="event_id" class="browser-default">
-                      <option value="" selected>Selecciona una opcion ...</option>
+                    <select id="event_id_show" name="event_id_show" class="browser-default">
+                      <option value="0" selected>Selecciona una opcion ...</option>
                       {% for ev in events %}
                         <option value="{{ ev.id }}">{{ ev.name }}</option>
                       {% endfor %}
                     </select>
                   </div>
                 </div>
-                <a class="waves-effect green lighten-1 btn">Visualizar mapa</a>
+                <div class="row">
+                  <div class="col s8 m8 offset-s2 offset-m2">
+                    <div class="collection">
+                      <div id="listView"></div>
+                    </div>
+                  </div>
+                </div>
+                </div>
               </div>
             </div>
           </div>
@@ -245,7 +259,23 @@
               success: function(data) {
                 if(data.status == 1){
                   Materialize.toast('Equipo agregado al&nbsp;<span class="yellow-text">evento!<span>', 4000, 'rounded')
-                  $('#event_id_tea').val($('#event_id_tea > option:first').val());
+
+                  var id = $('#event_id_tea > option:selected').val();
+                  $.ajax({
+                    url: "{{ urlFor('event_team') }}"+ id,
+                    type: "GET",
+                    dataType: "json",
+                    data: "",
+                    success: function(data) {
+                      if(data.status == 200){
+                        $('#listViewTeam').empty();
+                        for (var i = data.teams.length - 1; i >= 0; i--) {
+                          $('#listViewTeam').append('<a href="javascript:void(0);" class="collection-item avatar waves-effect waves-blue" data-id="'+data.teams[i].id+'"><i class="material-icons circle blue left">directions_walk</i> Equipo <br> <b>'+data.teams[i].name+'</b> </a>');
+                        };
+                    }
+                  }
+                  })
+
                   $('#team_id').val($('#team_id > option:first').val());
                 } else if(data.status == 2){
                   Materialize.toast('Error del servidor!', 4000, 'rounded')
@@ -254,6 +284,51 @@
             })
         }
       });
+
+    $('#event_id_show').change(function(event) {
+      var id = $('#event_id_show > option:selected').val();
+      $.ajax({
+        url: "{{ urlFor('event_id') }}"+ id,
+        type: "GET",
+        dataType: "json",
+        data: "",
+        success: function(data) {
+          if(data.status == 200){
+            $('#listView').empty();
+            for (var i = data.activities.length - 1; i >= 0; i--) {
+              $('#listView').append('<a href="javascript:void(0);" class="collection-item avatar waves-effect waves-blue" data-id="'+data.activities[i].id+'"><i class="material-icons circle blue left">directions_walk</i> Actividad <b>'+data.activities[i].name+'</b> <br> Estación <b>'+data.activities[i].station+'</b> </a>');
+            };
+            var id = $('#event_id_show > option:selected').val();
+            $('#listView').append('<a href="{{ urlFor('map') }}'+id+'" class="waves-effect green lighten-1 btn-large col m12 s12">Visualizar mapa</a>')
+          } else if(data.status == 400){
+             $('#listView').empty();
+            Materialize.toast('Seleccione un evento', 4000, 'rounded')
+          }
+        }
+      })
+    });
+
+    $('#event_id_tea').change(function(event) {
+      var id = $('#event_id_tea > option:selected').val();
+      $.ajax({
+        url: "{{ urlFor('event_team') }}"+ id,
+        type: "GET",
+        dataType: "json",
+        data: "",
+        success: function(data) {
+          if(data.status == 200){
+            $('#listViewTeam').empty();
+            for (var i = data.teams.length - 1; i >= 0; i--) {
+              $('#listViewTeam').append('<a href="javascript:void(0);" class="collection-item avatar waves-effect waves-blue" data-id="'+data.teams[i].id+'"><i class="material-icons circle blue left">directions_walk</i> Equipo <br> <b>'+data.teams[i].name+'</b> </a>');
+            };
+          } else if(data.status == 400){
+             $('#listViewTeam').empty();
+            Materialize.toast('Seleccione un evento', 4000, 'rounded')
+          }
+        }
+      })
+    });
+
 
   });
   </script>

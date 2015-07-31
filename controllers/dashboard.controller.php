@@ -29,6 +29,16 @@ $app->get('/actividades', $auth($app), function () use ($app){
   return $app->render('activities.twig',$data);
 })->name('activity');
 
+$app->get('/mapa/(:id)', $auth($app), function ($id) use ($app){
+  $user = $_SESSION['user'];
+  $app->view()->setData('user', $user);
+  $e = new Event();
+  $a = $e->events($id);
+  $data['activities'] = $a;
+  $data['find_activity'] = $e->findEvent($id);
+  return $app->render('mapa.twig',$data);
+})->name('map');
+
 $app->get('/participantes', $auth($app), function () use ($app){
   $user = $_SESSION['user'];
   $app->view()->setData('user', $user);
@@ -168,6 +178,30 @@ $app->get("/evento", function () use ($app){
   //print json_encode($e);
   print json_encode($data);
 })->name('evento');
+
+$app->get("/evento/(:id)", function ($id) use ($app){
+  if ($id != 0) {
+    $e = new Event();
+    $a = $e->events($id);
+    $data['status'] = 200;
+    $data['event'] = $e->event(1);
+    $data['activities'] = $a;
+  } else {
+    $data['status'] = 400;
+  }
+    print json_encode($data);
+})->name('event_id');
+
+$app->get('/evento/equipo/(:id)', function ($id) use ($app){
+  if ($id != 0) {
+    $data['status'] = 200;
+    $e = new Event();
+    $data['teams'] = $e-> teamsEvent($id);
+  } else {
+      $data['status'] = 400;
+  }
+  print json_encode($data);
+})->name('event_team');
 
 $app->get("/competitors", function () use ($app){
   $u = new User();
